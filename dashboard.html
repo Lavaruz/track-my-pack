@@ -10,18 +10,14 @@
       href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"
     />
     <link rel="stylesheet" href="./css/dashboard.css" />
-    <link rel="stylesheet" href="./css/index.css" />
-    <script
-      src="https://code.jquery.com/jquery-3.6.4.min.js"
-      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
-      crossorigin="anonymous"
-    ></script>
+    <link rel="stylesheet" href="./css/all.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
   </head>
   <body>
     <nav>
       <div class="nav-brand">
-        <h3><a href="/index.html">Trackk My Package</a></h3>
+        <img src="./img/logo.png" alt="" width="300" />
       </div>
       <div class="nav-list">
         <a href="#" id="accountButton">Assami Muzaki</a>
@@ -44,7 +40,9 @@
           </div>
           <div class="stat-data">
             <p>Status Pengiriman</p>
-            <div class="dummy"></div>
+            <div class="chart-wrapper">
+              <canvas id="statusChart"></canvas>
+            </div>
           </div>
           <!-- DTATISTIC DATA FROM BACKEND -->
         </div>
@@ -71,6 +69,9 @@
         </div>
       </div>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="./js/dashboard.js"></script>
+    <script src="./js/chartDashboard.js"></script>
   </body>
-  <script src="./js/index.js"></script>
 </html>

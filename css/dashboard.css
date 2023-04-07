@@ -45,7 +45,7 @@ main {
 }
 .dummy {
   width: 100%;
-  height: 12rem;
+  height: max-content;
   background-color: bisque;
 }
 
@@ -68,4 +68,10 @@ main {
 .main-list-title a:hover {
   background-color: lightgray;
   transition: 0.3s;
+}
+
+.chart-wrapper {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
 }
