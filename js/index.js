@@ -11,3 +11,7 @@ $(document).ready(function () {
     ],
   });
 });
+
+$("#login-button").click(() => {
+  $("#login-form").toggle("slide");
+});
