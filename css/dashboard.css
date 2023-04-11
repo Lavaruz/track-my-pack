@@ -14,6 +14,7 @@ a {
 
 .nav-list-drop {
   display: none;
+  background-color: white;
 }
 .drop-toggle {
   display: flex;
