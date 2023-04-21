@@ -16,6 +16,10 @@
 
 CI_ENVIRONMENT = development
 
+# Server Config
+app_host = http://localhost:8030
+app_env = development
+
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
@@ -31,7 +35,7 @@ app.CSPEnabled = false
 database.default.hostname = localhost
 database.default.database = track_my_pack
 database.default.username = root
-database.default.password = root
+database.default.password = admin
 database.default.DBDriver = MySQLi
 database.default.DBPrefix =
 database.default.port = 3306
@@ -106,27 +110,28 @@ honeypot.container = '<div style="display:none">{template}</div>'
 # SECURITY
 #--------------------------------------------------------------------
 
-# security.csrfProtection = 'session'
+security.csrfProtection = 'cookie'
 # security.tokenRandomize = false
-# security.tokenName = 'csrf_token_name'
-# security.headerName = 'X-CSRF-TOKEN'
-# security.cookieName = 'csrf_cookie_name'
-# security.expires = 7200
-# security.regenerate = true
-# security.redirect = false
-# security.samesite = 'Lax'
+security.tokenName = 'csrf_token_name'
+security.headerName = 'X-CSRF-TOKEN'
+security.cookieName = 'csrf_cookie_name'
+security.expires = 7200
+security.regenerate = true
+security.redirect = true
+security.samesite = 'Lax'
+secretkey = kkpkelompok5
 
 #--------------------------------------------------------------------
 # SESSION
 #--------------------------------------------------------------------
 
-# session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
-# session.cookieName = 'ci_session'
-# session.expiration = 7200
-# session.savePath = null
-# session.matchIP = false
-# session.timeToUpdate = 300
-# session.regenerateDestroy = false
+session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
+session.cookieName = 'ci_session'
+session.expiration = 7200
+session.savePath = writable/session
+session.matchIP = false
+session.timeToUpdate = 300
+session.regenerateDestroy = false
 
 #--------------------------------------------------------------------
 # LOGGER

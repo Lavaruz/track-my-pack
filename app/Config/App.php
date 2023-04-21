@@ -17,7 +17,7 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'http://localhost:8030/';
+    public string $baseURL = '';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
@@ -96,7 +96,7 @@ class App extends BaseConfig
      *
      * @var string[]
      */
-    public array $supportedLocales = ['en'];
+    public array $supportedLocales = ['en', 'id'];
 
     /**
      * --------------------------------------------------------------------------
@@ -442,4 +442,13 @@ class App extends BaseConfig
      * @see http://www.w3.org/TR/CSP/
      */
     public bool $CSPEnabled = false;
+
+    // Constructor (Initializer)
+    public function __construct()
+    {
+        parent::__construct();
+
+        // defined('ENVIRONMENT') || define('ENVIRONMENT', getenv('app_env'));
+        $this->baseURL = getenv('app_host');
+    }
 }

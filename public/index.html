@@ -14,14 +14,38 @@
     />
   </head>
   <body>
+    <!-- START NAV -->
     <nav>
       <div class="nav-brand">
-        <h3><a href="/index.html">Trackk My Package</a></h3>
+        <a href="/index.html"
+          ><img src="./img/logo.png" alt="" width="300"
+        /></a>
       </div>
       <div class="nav-list">
-        <a href="login.html">Login</a>
+        <button id="login-button">Sign-in</button>
+      </div>
+      <div class="login-form" id="login-form">
+        <form action="/dashboard.html">
+          <p style="margin: 0; margin-bottom: 1rem">Login Form</p>
+          <hr style="margin-bottom: 1rem" />
+          <div class="input-form">
+            <label for="">email: </label>
+            <input type="text" name="" id="" placeholder="masukan email..." />
+            <label for="">password: </label>
+            <input
+              type="password"
+              name=""
+              id=""
+              placeholder="masukan password..."
+            />
+            <button type="submit">Login</button>
+          </div>
+        </form>
       </div>
     </nav>
+    <!-- END NAV -->
+
+    <!-- START MAIN  -->
     <main>
       <div class="main-title">
         <h1>Track My Pack</h1>
@@ -38,6 +62,9 @@
         </form>
       </div>
     </main>
+    <!-- END MAIN -->
+
+    <!-- START TABLE SEARCH -->
     <div class="table-search">
       <table id="indexTable">
         <thead>
@@ -52,6 +79,7 @@
         </thead>
       </table>
     </div>
+    <!-- END TABLE SEARCH -->
   </body>
 
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

@@ -26,14 +26,14 @@ class Database extends Config
      */
     public array $default = [
         'DSN'      => '',
-        'hostname' => 'localhost',
+        'hostname' => '',
         'username' => '',
         'password' => '',
         'database' => '',
-        'DBDriver' => 'MySQLi',
+        'DBDriver' => '',
         'DBPrefix' => '',
         'pConnect' => false,
-        'DBDebug'  => true,
+        'DBDebug'  => (ENVIRONMENT !== 'development'),
         'charset'  => 'utf8',
         'DBCollat' => 'utf8_general_ci',
         'swapPre'  => '',
@@ -57,7 +57,7 @@ class Database extends Config
         'DBDriver'    => 'SQLite3',
         'DBPrefix'    => 'db_',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
         'pConnect'    => false,
-        'DBDebug'     => true,
+        'DBDebug'     => (ENVIRONMENT !== 'development'),
         'charset'     => 'utf8',
         'DBCollat'    => 'utf8_general_ci',
         'swapPre'     => '',
@@ -73,6 +73,13 @@ class Database extends Config
     public function __construct()
     {
         parent::__construct();
+
+        $this->default['hostname'] = getenv('db_host');
+        $this->default['port']     = getenv('db_port');
+        $this->default['username'] = getenv('db_username');
+        $this->default['password'] = getenv('db_password');
+        $this->default['database'] = getenv('db_name');
+        $this->default['DBDriver'] = getenv('db_driver');
 
         // Ensure that we always set the database group to 'tests' if
         // we are currently running an automated test suite, so that

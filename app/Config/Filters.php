@@ -21,6 +21,11 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'auth'          => Auth::class,
+        'authapi'       => AuthApi::class,
+        'security'      => Security::class,
+        'cors'          => Cors::class,
+        'lang'          => \App\Filters\Language::class
     ];
 
     /**

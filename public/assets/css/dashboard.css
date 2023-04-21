@@ -1,0 +1,78 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4rem;
+  align-items: center;
+}
+a {
+  text-decoration: none;
+}
+.nav-list {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-list-drop {
+  display: none;
+  background-color: white;
+}
+.drop-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: fixed;
+  top: 5rem;
+  right: 5rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1rem;
+}
+main {
+  padding: 4rem;
+}
+
+.main-statistic {
+  padding-bottom: 4rem;
+}
+.main-statistic-data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.stat-data {
+  padding: 0.5rem;
+  border: 0.5px solid gray;
+  border-radius: 10px;
+}
+.dummy {
+  width: 100%;
+  height: max-content;
+  background-color: bisque;
+}
+
+.main-list-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.main-list-title form input {
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  border: 0.5px solid gray;
+}
+.main-list-title a {
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  border: 0.5px solid gray;
+  color: black;
+}
+.main-list-title a:hover {
+  background-color: lightgray;
+  transition: 0.3s;
+}
+
+.chart-wrapper {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}

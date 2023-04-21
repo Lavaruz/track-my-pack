@@ -6,6 +6,9 @@ class Home extends BaseController
 {
     public function index()
     {
-        return view('welcome_message');
+        $session = session();
+        $config['user_detail'] = $session->get('user_detail');
+        
+        return view('index', $config);
     }
 }
