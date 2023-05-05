@@ -1152,3 +1152,17 @@ table.dataTable tr.odd td {
   padding: 0 4rem;
   align-items: center;
 }
+
+.signin-btn {
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.signin-btn:hover {
+  color: #e4e4e4;
+}
+
+.help-block {
+  font-size: small;
+  color: red;
+}

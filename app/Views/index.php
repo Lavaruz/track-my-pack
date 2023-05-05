@@ -22,8 +22,11 @@
   <script src="<?=base_url('/assets/plugins/sweetalert2/sweetalert2.min.js')?>"></script>
 
   <!-- jQuery -->
-  <script src="<?=base_url('/assets/js/jquery.min.js')?>"></script>
-  <script src="<?=base_url('/assets/js/jquery.validate.js')?>"></script>
+  <script src="<?= base_url('/assets/plugins/jquery/jquery-3.6.4.min.js') ?>"></script>
+  <script src="<?= base_url('/assets/plugins/jquery-datatable/js/jquery.datatables.js') ?>"></script>
+  <script src="<?= base_url('/assets/js/jquery-validate.js') ?>"></script>
+
+  <!-- Select2 -->
   <link rel="stylesheet" href="<?=base_url('/assets/css/select2.min.css')?>" />
   <script src="<?=base_url('/assets/js/select2.min.js')?>"></script>
 
@@ -31,9 +34,7 @@
   <script src="<?=base_url('/assets/plugins/bootstrap/js/bootstrap.min.js')?>"></script>
   <script src="<?=base_url('/assets/plugins/datepicker/js/bootstrap-datepicker.min.js')?>"></script>
 
-  <script src="<?= base_url('/assets/plugins/jquery/jquery-3.6.4.min.js') ?>"></script>
-  <script src="<?= base_url('/assets/plugins/jquery-datatable/js/jquery.datatables.js') ?>"></script>
-  <!-- <script src="<?= base_url('/assets/js/index.js') ?>"></script> -->
+  <script src="<?= base_url('/assets/js/index.js') ?>"></script>
 
   <?=$this->renderSection('preload')?>
 </head>
@@ -46,19 +47,34 @@
         <a href="<?=base_url()?>"><img src="<?=base_url('/assets/img/logo.png')?>" alt="" width="300" /></a>
       </div>
       <div class="nav-list">
-        <button id="login-button">Sign-in</button>
+        <a href="#" role="button" id="login-button" class="signin-btn">Sign-in <i id="sign-caret" class="fas fa-caret-down"></i></a>
       </div>
       <div class="login-form" id="login-form">
         <form id="f1">
-          <p style="margin: 0; margin-bottom: 1rem">Login Form</p>
+          <div class="login-form-header">
+            <p style="margin: 0px;">Login Form</p>
+            <p style="font-size: small;">Masukan kredensial akun anda untuk masuk</p>
+          </div>
           <hr style="margin-bottom: 1rem" />
           <div class="input-form">
-            <label for="username">Email: </label>
-            <input type="text" name="username" id="login_username" placeholder="Masukan email" />
-            <label for="password">Password: </label>
-            <input type="password" name="password" id="login_password" placeholder="Masukan password" />
+            <div class="row form-group">
+              <div class="col-4">
+                <label for="username">Username: </label>
+              </div>
+              <div class="col-8">
+                <input type="text" class="form-control" name="username" id="login_username" placeholder="Masukan username" />
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-4">
+                <label for="password">Password: </label>
+              </div>
+              <div class="col-8">
+                <input type="password" class="form-control" name="password" id="login_password" placeholder="Masukan password" />
+              </div>
+            </div>
           </div>
-          <button type="button" id="login_submit">Login</button>
+          <button type="button" id="login_submit" class="login-btn float-end">Login</button>
         </form>
       </div>
     </div>
@@ -100,16 +116,36 @@
         </div>
       <!-- END TABLE SEARCH -->
     </div>
-  </main>
+  </div>
   <!-- END MAIN -->
+
+  <!-- Footer -->
+  <footer>
+    <!-- <div class="container-fluid footer">
+      <p style="display: flex; font-size: 1rem; justify-content:center; align-self:flex-end">2023</p>
+    </div> -->
+  </footer>
+  <!-- End Footer -->
   
 </body>
 
 <!-- Login Slide -->
 <script>
-  $("#login-button").click(() => {
-    $("#login-form").toggle("slide");
+  $("#login-button").click((e) => {
+    e.preventDefault();
+    $("#login-form").slideToggle(200);
+    toggleCaretSign();
   });
+
+  function toggleCaretSign() {
+    if($('#sign-caret').attr('class') == 'fas fa-caret-down') {
+      $('#sign-caret').removeClass('fas fa-caret-down');
+      $('#sign-caret').addClass('fas fa-caret-up');
+    } else {
+      $('#sign-caret').removeClass('fas fa-caret-up');
+      $('#sign-caret').addClass('fas fa-caret-down');
+    }
+  }
 </script>
 
 <!-- Datatable Index -->
@@ -127,6 +163,39 @@
       ],
     });
   });
+</script>
+
+<!-- Form login -->
+<script>
+  $('#login_submit').click(() => {
+    if(validateForm()) {
+      $("#f1").submit();
+    }
+  });
+
+  function validateForm() {
+    var validator = $("#f1").validate();
+
+    if (validator.form()) {
+      return true;
+    } else {
+      validator.focusInvalid();
+      return false;
+    }
+  }
+
+  $(document).ready(function() {
+    $('#f1').validate({
+      rules: {
+        username: {required: true},
+        password: {required: true},
+      },
+      messages: {
+        username: {required: "Username tidak boleh kosong"},
+        password: {required: "Password tidak boleh kosong"},
+      },
+    });
+  })
 </script>
 
 </html>

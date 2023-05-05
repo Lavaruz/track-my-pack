@@ -24,6 +24,7 @@ app_env = development
 # APP
 #--------------------------------------------------------------------
 
+$baseURL = 'http://localhost:8030/';
 app.baseURL = 'http://localhost:8030/' # <- Disesuaikan dengan port localhost masing-masing
 app.forceGlobalSecureRequests = false
 app.CSPEnabled = false

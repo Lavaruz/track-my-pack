@@ -49,7 +49,7 @@ main {
 .login-form {
   position: absolute;
   right: 8%;
-  top: 12%;
+  top: 80%;
   padding: 1rem;
   background-color: white;
   border-radius: 5px;
@@ -58,9 +58,39 @@ main {
   z-index: 999 !important;
 }
 
-.input-form {
-  display: grid;
+.form-group {
+  /* display: grid;
   grid-template-columns: max-content 1fr;
-  gap: 1rem;
+  gap: 1rem; */
   align-items: center;
+  margin-bottom: 10px;
+  justify-items: center;
+}
+
+.form-group input {
+  max-width: 200px;
+}
+
+.login-btn {
+  float: right !important;
+  margin: 10px 0px;
+  padding: 4px 14px;
+  color: #3c3c3c;
+  background-color: #d5d5d5;
+  border: white;
+}
+
+.login-btn:hover {
+  background-color: #b6b6b6;
+}
+
+.login-form-header {
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.footer {
+  background-color: #3c3c3c;
+  color: #ececec;
+  height: 100px;
 }
