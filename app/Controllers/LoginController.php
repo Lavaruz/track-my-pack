@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Exception;
 use Psr\Log\LoggerInterface;
+use Firebase\JWT\JWT;
 
 class LoginController extends BaseController
 {
@@ -38,7 +39,9 @@ class LoginController extends BaseController
     public function auth()
     {
         // Init
-        $session = session();
+        $session    = session();
+        $status     = 'failed';
+        $message    = 'Terjadi kesalahan, silahkan coba lagi';  
 
         // GET Vars
         $username = $this->request->getVar('username');
@@ -50,7 +53,8 @@ class LoginController extends BaseController
 
             // SuperUser Method
             if ($superuser) {
-                $data = $this->userModel->where('usr_id', '1')->first();
+                $data = $this->userModel->where('id', '1')->first();
+
                 $sessiondata = array(
                     'user_id'   => 1,
                     'username'  => 'admin_kkp',
@@ -60,8 +64,10 @@ class LoginController extends BaseController
                     'logged_in' => TRUE
                 );
 
-                $session->set($sessiondata);
-                return redirect()->to('/dashboard');
+                $session->set('user_detail', $sessiondata);
+                $status = 'success';
+                $message = 'Sukses login';
+
             // Normal User Method
             } else {
                 $data = $this->userModel->where("username='$username' OR email='$username'")->first();
@@ -83,24 +89,29 @@ class LoginController extends BaseController
                         ];
     
                         $session->set('user_detail', $ses_data);
-                        return redirect()->to('/dashboard');
+                        $status = 'success';
+                        $message = 'Sukses login';
     
                     // Jika password salah
                     } else {
-                        $session->setFlashdata('msg', 'Password anda salah');
-                        return redirect()->to('/login');
+                        $message = 'Password anda salah';
                     }
     
                 // Jika username / email tidak ditemukan
                 } else {
-                    $session->setFlashdata('authMsg', 'Username / Email anda tidak ditemukan');
-                    return redirect()->to('/login');
+                    $message = 'Username / Email anda tidak ditemukan';
                 }
             }
         } catch(Exception $e) {
-            $session->setFlashdata('authMsg', 'Otentikasi Error:'.$e->getMessage());
-            return redirect()->to('/login');
+            $message = 'Otentikasi Error:'.$e->getMessage();
         }
+
+        $result = array(
+            'status' => $status,
+            'message' => $message,
+        );
+
+        return json_encode($result);
     }
 
     /**
@@ -111,6 +122,6 @@ class LoginController extends BaseController
     {
         $session = session();
         $session->destroy();
-        return redirect()->to('/login');
+        return redirect()->to('/');
     }
 }

@@ -1153,16 +1153,22 @@ table.dataTable tr.odd td {
   align-items: center;
 }
 
-.signin-btn {
+.navbar-btn {
   color: #ffffff;
   letter-spacing: 1px;
 }
 
-.signin-btn:hover {
+.navbar-btn:hover {
   color: #e4e4e4;
 }
 
 .help-block {
   font-size: small;
   color: red;
+}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }

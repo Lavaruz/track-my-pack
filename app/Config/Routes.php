@@ -37,8 +37,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/logout', 'LoginController::logout');
-$routes->post('/auth', 'LoginController::auth');
-$routes->post('/verify-login', 'LoginController::verify');
+$routes->post('/verify', 'LoginController::auth');
 
 
 // Language API
