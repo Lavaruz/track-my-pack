@@ -24,7 +24,7 @@ class PengirimanController extends BaseController
 
     public function index()
     {
-        //
+        return view('pengiriman/form');
     }
 
     public function getDetailByResi()

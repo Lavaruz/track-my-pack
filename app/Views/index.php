@@ -10,33 +10,33 @@
 <?= $this->endSection() ?>
 
 <?= $this->section("content") ?>
-<!-- Form Search -->
-<div class="main-form">
-  <form id="form_search">
-    <input type="text" name="search_resi" id="search_resi" placeholder="Masukan Nomor Resi" style="padding:8px 16px;" />
-    <button type="button" class="btn btn-outline-dark" id="search_submit">Track</button>
-  </form>
-</div>
-<!-- End Form Search -->
-
-<?php if(isset($user_detail) && $user_detail['logged_in']) { ?>
-  <!-- START TABLE SEARCH -->
-  <div class="filter-table">
-    <table id="indexTable">
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>No. Resi</th>
-          <th>Pengirim</th>
-          <th>Penerima</th>
-          <th>Destinasi</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-    </table>
+  <!-- Form Search -->
+  <div class="main-form">
+    <form id="form_search">
+      <input type="text" name="search_resi" id="search_resi" placeholder="Masukan Nomor Resi" style="padding:8px 16px;" />
+      <button type="button" class="btn btn-outline-dark" id="search_submit">Track</button>
+    </form>
   </div>
-  <!-- END TABLE SEARCH -->
-<?php } ?>
+  <!-- End Form Search -->
+
+  <?php if(isset($user_detail) && $user_detail['logged_in']) { ?>
+    <!-- START TABLE SEARCH -->
+    <div class="filter-table">
+      <table id="indexTable">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>No. Resi</th>
+            <th>Pengirim</th>
+            <th>Penerima</th>
+            <th>Destinasi</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <!-- END TABLE SEARCH -->
+  <?php } ?>
 
 <?= $this->endSection() ?>
 

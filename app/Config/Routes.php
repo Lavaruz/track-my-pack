@@ -40,6 +40,16 @@ $routes->get('/logout', 'LoginController::logout');
 $routes->post('/verify', 'LoginController::auth');
 $routes->post('/getAllDashboard', 'Home::getAllDashboard');
 $routes->post('/cekPengirimanResi', 'PengirimanController::getDetailByResi');
+$routes->get('/pengiriman', 'PengirimanController::index');
+$routes->get('/pengiriman/tambah', 'PengirimanController::addForm');
+$routes->get('/pengiriman/ubah', 'PengirimanController::editForm');
+$routes->get('/perusahaan', 'PerusahaanController::index');
+$routes->get('/perusahaan/tambah', 'PerusahaanController::addForm');
+$routes->get('/perusahaan/ubah', 'PerusahaanController::editForm');
+$routes->get('/user', 'UserController::index');
+$routes->get('/user/tambah', 'UserController::addForm');
+$routes->get('/user/ubah', 'UserController::editForm');
+$routes->get('/profil', 'UserController::profil');
 
 
 // Language API
