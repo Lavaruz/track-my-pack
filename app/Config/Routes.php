@@ -38,6 +38,8 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/logout', 'LoginController::logout');
 $routes->post('/verify', 'LoginController::auth');
+$routes->post('/getAllDashboard', 'Home::getAllDashboard');
+$routes->post('/cekPengirimanResi', 'PengirimanController::getDetailByResi');
 
 
 // Language API

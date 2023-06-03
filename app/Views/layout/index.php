@@ -61,23 +61,39 @@ $user_detail = $session->get('user_detail') ?? null;
   <!-- END NAV -->
 
   <!-- START MAIN  -->
-  <div class="wrapper-box" style="margin: 20px;">
-    <div class="main-title">
-      <h1 class="prevent-select">Track My Package</h1>
-    </div>
+  <div class="wrapper-box" style="margin: 2rem;">
+    <?= $this->renderSection('title') ?>
     <div class="container-content">
-
       <?= $this->renderSection('content') ?>
-
     </div>
   </div>
   <!-- END MAIN -->
 
   <!-- Footer -->
-  <footer>
-    <!-- <div class="container-fluid footer">
-      <p style="display: flex; font-size: 1rem; justify-content:center; align-self:flex-end">2023</p>
-    </div> -->
+  <footer class="container-fluid footer" style="margin-top: 5rem;">
+    <div class="row m-4">
+      <div class="col-md-8 p-2 border-bottom border-3 border-gray rounded">
+        <h2>Fitur</h2>
+        <ul>
+          <li>Update status perjalanan paket anda dengan mudah</li>
+          <li>Memberikan informasi perjalanan paket kepada konsumen anda</li>
+          <li>Layanan pengecekan resi gratis tanpa dipungut biaya</li>
+          <li>Bantuan pembuatan multi akun untuk satu perusahaan</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row justify-content-end m-4" style="margin-top: 3rem;">
+      <div class="col-md-6 p-2 text-end">
+        <h2>Tentang Kami</h2>
+        <p style="margin: 0;">Kelompok KKP - 5</p>
+        <p style="margin: 0;">Program Studi Teknik Informatika</p>
+        <p style="margin: 0;">Fakultas Teknik dan Ilmu Komputer</p>
+        <p style="margin: 0;">Universitas Indraprasta PGRI</p>
+      </div>
+    </div>
+    <div class="justify-content-center text-center" style="margin:0;">
+      <p style="margin:0;">2023</p>
+    </div>
   </footer>
   <!-- End Footer -->
   

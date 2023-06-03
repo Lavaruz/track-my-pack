@@ -1172,3 +1172,15 @@ table.dataTable tr.odd td {
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
+
+.m-3 {
+  margin: .75rem!important;
+}
+
+.m-4 {
+  margin: 1rem!important;
+}
+
+.swal2-popup {
+  font-size: 0.7rem!important;
+}

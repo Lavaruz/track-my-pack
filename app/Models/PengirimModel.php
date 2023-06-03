@@ -7,36 +7,44 @@ use CodeIgniter\Model;
 class PengirimModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'pengirims';
+    protected $table            = 'pengirim';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $insertID         = 0;
-    protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'nama',
+        'nomor_hp',
+        'alamat',
+        'ctime',
+        'cuser_id',
+        'mtime',
+        'muser_id',
+        'dtime',
+        'duser_id',
+        'is_deleted',
+    ];
 
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+    protected $createdField  = 'ctime';
+    protected $updatedField  = 'mtime';
+    protected $deletedField  = 'dtime';
 
-    // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
-    protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
+    public function do_add($data)
+    {
+        # code...
+    }
 
-    // Callbacks
-    protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
+    public function do_update($id, $data)
+    {
+        # code...
+    }
+
+    public function do_delete($id)
+    {
+        # code...
+    }
+
 }

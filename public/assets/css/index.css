@@ -90,7 +90,11 @@ main {
 }
 
 .footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
   background-color: #3c3c3c;
   color: #ececec;
-  height: 100px;
+  min-height: 200px;
+  padding: 1.5rem;
 }
