@@ -1233,20 +1233,36 @@ html {
 *:after {
   box-sizing: inherit;
 }
-.form-pengiriman {
-  border: 0.2px solid gray;
+.form-pengiriman form button {
+  border: 0.1px solid lightgray;
+  background-color: lightgray;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   border-radius: 5px;
-  padding: 1rem 3rem;
+  padding: 0.5rem 1.5rem;
+  width: 100%;
+  transition: 0.3s;
+}
+.form-pengiriman form button:hover {
+  background-color: rgb(172, 172, 172);
+  border: 0.1px solid rgb(172, 172, 172);
+}
+.form-pengiriman {
+  /* border: 0.2px solid gray; */
+  border-radius: 5px;
+  margin: 0 4rem;
+  padding: 1rem;
   display: grid;
   justify-content: center;
 }
 .form-pengiriman-data {
+  background-color: #ffffff;
   padding: 1rem;
-  border: 0.2px solid gray;
-  margin: 0.8rem 0;
+  border: 0.2px solid lightgray;
+  margin: 1.5rem 0;
   border-radius: 10px;
   display: grid;
   gap: 0.7rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 .form-pengiriman-label {
   display: grid;
@@ -1260,15 +1276,15 @@ html {
 }
 .form-pengiriman-label label input {
   width: 100%;
-  border-radius: 3px;
+  border-radius: 5px;
   padding: 0.2rem 0.7rem;
 }
-.form-pengiriman-label-barang label input {
-  width: 100%;
-  border-radius: 3px;
-}
+.form-pengiriman-label-barang label input,
 .form-pengiriman-label-barang label select {
   width: 100%;
-  border-radius: 3px;
-  padding: 0.5rem 0.7rem;
+  border-radius: 5px;
+  padding: 0.2rem 0.7rem;
+}
+.form-pengiriman-label-barang label select {
+  padding: 0.4rem 0.7rem;
 }
