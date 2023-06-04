@@ -10,15 +10,15 @@
       <div class="form-pengiriman-label">
         <label for="pengirim-nama">
           Nama
-          <input type="text" name="pengirim-nama" id="pengirim-nama">
+          <input type="text" name="pengirim-nama" id="pengirim-nama" placeholder="masukan nama pengirim">
         </label>
         <label for="pengirim-tlp">
           No.Telp
-          <input type="text" name="pengirim-tlp" id="pengirim-tlp">
+          <input type="text" name="pengirim-tlp" id="pengirim-tlp" placeholder="masukan nomor pengirim">
         </label>
         <label for="pengirim-alamat">
           Alamat
-          <input type="text" name="pengirim-alamat" id="pengirim-alamat">
+          <input type="text" name="pengirim-alamat" id="pengirim-alamat" placeholder="masukan alamat pengirim">
         </label>
       </div>
     </div>
@@ -27,15 +27,15 @@
       <div class="form-pengiriman-label">
         <label for="penerima-nama">
           Nama
-          <input type="text" name="penerima-nama" id="penerima-nama">
+          <input type="text" name="penerima-nama" id="penerima-nama" placeholder="masukan nama penerima">
         </label>
         <label for="penerima-tlp">
           No.Telp
-          <input type="text" name="penerima-tlp" id="penerima-tlp">
+          <input type="text" name="penerima-tlp" id="penerima-tlp" placeholder="masukan nomor penerima">
         </label>
         <label for="penerima-alamat">
           Alamat
-          <input type="text" name="penerima-alamat" id="penerima-alamat">
+          <input type="text" name="penerima-alamat" id="penerima-alamat" placeholder="masukan alamat penerima">
         </label>
       </div>
     </div>
@@ -44,11 +44,11 @@
       <div class="form-pengiriman-label-barang">
         <label for="barang-nama">
           Nama
-          <input type="text" name="barang-nama" id="barang-nama">
+          <input type="text" name="barang-nama" id="barang-nama"placeholder="masukan nama barang">
         </label>
         <label for="barang-berat">
           Berat
-          <input type="text" name="barang-berat" id="barang-berat">
+          <input type="text" name="barang-berat" id="barang-berat"placeholder="masukan berat barang">
         </label>
         <label for="barang-tgl-masuk">
           Tanggal Masuk
@@ -61,6 +61,7 @@
         <label for="barang-status">
           Status
           <select name="barang-status" id="barang-status">
+            <option value="">pilih status pengiriman</option>
             <option value="progress">ON PROGRES</option>
             <option value="success">SUCCESS</option>
             <option value="failed">FAILED</option>
