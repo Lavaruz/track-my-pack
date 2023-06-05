@@ -2,11 +2,11 @@
 
 <!-- Disini Contentnya apa -->
 <?= $this->section("content") ?>
-<div class="form-pengiriman">
+<div class="container-pengiriman">
   <h2>From Pengiriman Barang</h2>
   <form id="form-pengiriman">
     <div class="form-pengiriman-data">
-      <h3>Pengirim</h3>
+      <h3>Data Pengirim</h3>
       <div class="form-pengiriman-label">
         <label for="pengirim-nama">
           Nama
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="form-pengiriman-data">
-      <h3>Penerima</h3>
+      <h3>Data Penerima</h3>
       <div class="form-pengiriman-label">
         <label for="penerima-nama">
           Nama
@@ -40,7 +40,7 @@
       </div>
     </div>
     <div class="form-pengiriman-data">
-      <h3>Barang</h3>
+      <h3>Data Barang</h3>
       <div class="form-pengiriman-label-barang">
         <label for="barang-nama">
           Nama
@@ -59,9 +59,9 @@
           <input type="date" name="barang-tgl-keluar" id="barang-tgl-keluar">
         </label>
         <label for="barang-status">
-          Status
+          Status <br>
           <select name="barang-status" id="barang-status">
-            <option value="">pilih status pengiriman</option>
+            <option value=""></option>
             <option value="progress">ON PROGRES</option>
             <option value="success">SUCCESS</option>
             <option value="failed">FAILED</option>
@@ -72,4 +72,12 @@
     <button type="submit">Simpan</button>
   </form>
 </div>
+<script>
+    $(document).ready(function() {
+    $('#barang-status').select2({
+        placeholder: "pilih status pengiriman",
+        allowClear: true
+    });
+});
+</script>
 <?= $this->endSection() ?>

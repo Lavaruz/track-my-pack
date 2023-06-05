@@ -1233,20 +1233,19 @@ html {
 *:after {
   box-sizing: inherit;
 }
-.form-pengiriman form button {
-  border: 0.1px solid lightgray;
-  background-color: lightgray;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+.container-pengiriman form button {
+  border: none;
+  background-color: #2adba7;
   border-radius: 5px;
   padding: 0.5rem 1.5rem;
   width: 100%;
   transition: 0.3s;
+  color: white;
 }
-.form-pengiriman form button:hover {
-  background-color: rgb(172, 172, 172);
-  border: 0.1px solid rgb(172, 172, 172);
+.container-pengiriman form button:hover {
+  background-color: #23ffbd;
 }
-.form-pengiriman {
+.container-pengiriman {
   /* border: 0.2px solid gray; */
   border-radius: 5px;
   margin: 0 4rem;
@@ -1275,16 +1274,66 @@ html {
   gap: 1rem;
 }
 .form-pengiriman-label label input {
+  border: 0.1px solid lightgray;
   width: 100%;
   border-radius: 5px;
-  padding: 0.2rem 0.7rem;
+  padding: 0.5rem 1rem;
 }
 .form-pengiriman-label-barang label input,
 .form-pengiriman-label-barang label select {
+  border: 0.1px solid lightgray;
   width: 100%;
   border-radius: 5px;
-  padding: 0.2rem 0.7rem;
+  padding: 0.5rem 1rem;
 }
-.form-pengiriman-label-barang label select {
-  padding: 0.4rem 0.7rem;
+
+/* PROFIL */
+.container-profile {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  margin: 0 20rem;
+}
+.profile-info {
+  background-color: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem;
+}
+.profile-data {
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.profile-data label input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 0.1px solid lightgray;
+  border-radius: 3px;
+}
+.profile-data button {
+  width: 25%;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #2adba7;
+  color: white;
+  transition: 0.3s;
+  border-radius: 5px;
+  margin: 2rem auto 0 auto;
+}
+.profile-data button:hover {
+  background-color: #23ffbd;
+}
+.profile-data-side {
+  display: flex;
+  gap: 1rem;
+}
+.profile-data-side label {
+  width: 100%;
+}
+.profile-perusahaan-select {
+  width: 100%;
+  padding: 0.5rem 1rem;
 }

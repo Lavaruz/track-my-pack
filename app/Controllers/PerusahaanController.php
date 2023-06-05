@@ -8,6 +8,6 @@ class PerusahaanController extends BaseController
 {
     public function index()
     {
-        //
+        return view('perusahaan/form');
     }
 }
