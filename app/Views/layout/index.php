@@ -63,7 +63,7 @@ $user_detail = $session->get('user_detail') ?? null;
   <!-- END NAV -->
 
   <!-- START MAIN  -->
-  <div class="wrapper-box" style="margin: 2rem;">
+  <div class="wrapper-box" style="margin: 2rem; min-height:50vh;">
     <?= $this->renderSection('title') ?>
     <div class="container-content">
       <?= $this->renderSection('content') ?>
@@ -120,6 +120,11 @@ $user_detail = $session->get('user_detail') ?? null;
       $('#sign-caret').addClass('fas fa-caret-down');
     }
   }
+  
+  $('#dropdownMenuButton').click(function(e) {
+    e.preventDefault()
+    $('.dropdown-menu').slideToggle(200);
+  })
 </script>
 
 <!-- Form login -->

@@ -24,7 +24,40 @@ class PengirimanController extends BaseController
 
     public function index()
     {
-        return view('pengiriman/form');
+        $session = session();
+        $config['session'] = $session->get('user_detail');
+
+        return view('pengiriman/index');
+    }
+
+    public function form($action = 'add', $id = '')
+    {
+        $session = session();
+        $config['session'] = $session->get('user_detail');
+
+        $data = array();
+        $data['action'] = "do_$action";
+
+        if($action == 'update') {
+            if($id == '') throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Halaman tidak ditemukan');
+
+            $detail = $this->pengirimanModel->getDetailById($id);
+            if(!$detail) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('ID tidak ditemukan');
+
+            $data['data'] = $detail;
+        }
+
+        return view('pengiriman/form', $data);
+    }
+
+    public function do_add()
+    {
+        
+    }
+
+    public function do_update($id)
+    {
+        
     }
 
     public function getDetailByResi()

@@ -295,6 +295,8 @@ body.bg-modal .label-btn .username-label .visitor-company {
 .dropdown-menu.dropdown-navbar {
   left: unset !important;
   right: 0 !important;
+  top: 8vh !important;
+  border: 1px solid #cacaca !important;
 }
 
 .container-content {

@@ -77,6 +77,14 @@ class PengirimanModel extends Model
         return $result;
     }
 
+    public function getDetailById($id)
+    {
+        $builder = $this->db->table($this->table);
+        $builder->select();
+        $builder->where('id', $id);
+        return $builder->get()->getRow();
+    }
+
     public function getDetailByResi($id)
     {
         $builder = $this->db->table($this->table);
@@ -87,17 +95,18 @@ class PengirimanModel extends Model
 
     public function do_add($data)
     {
-        # code...
+        $builder = $this->db->table($this->table);
+        $builder->insert($data);
+        return $this->db->insertID();
     }
 
     public function do_update($id, $data)
     {
-        # code...
-    }
+        $builder = $this->db->table($this->table);
+        $builder->where('id', $id);
+        $result = $builder->update($data);
 
-    public function do_delete($id)
-    {
-        # code...
+        return $result;
     }
     
 }
