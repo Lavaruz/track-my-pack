@@ -25,7 +25,8 @@ class Filters extends BaseConfig
         'authapi'       => AuthApi::class,
         'security'      => Security::class,
         'cors'          => Cors::class,
-        'lang'          => \App\Filters\Language::class
+        'lang'          => \App\Filters\Language::class,
+        'authGuard'     => \App\Filters\AuthGuard::class
     ];
 
     /**
@@ -37,6 +38,11 @@ class Filters extends BaseConfig
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
+            'authGuard' => ['except' => [
+                '/',
+                'logout/',
+                'verify/',
+            ]]
         ],
         'after' => [
             'toolbar',

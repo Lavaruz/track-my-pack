@@ -63,7 +63,7 @@ $user_detail = $session->get('user_detail') ?? null;
   <!-- END NAV -->
 
   <!-- START MAIN  -->
-  <div class="wrapper-box" style="margin: 2rem; min-height:50vh;">
+  <div class="wrapper-box" style="margin: 2rem; min-height:80vh;">
     <?= $this->renderSection('title') ?>
     <div class="container-content">
       <?= $this->renderSection('content') ?>
@@ -73,7 +73,7 @@ $user_detail = $session->get('user_detail') ?? null;
 
   <!-- Footer -->
   <footer class="container-fluid footer" style="margin-top: 5rem;">
-    <div class="row m-4">
+    <!-- <div class="row m-4">
       <div class="col-md-8 p-2 border-bottom border-3 border-gray rounded">
         <h2>Fitur</h2>
         <ul>
@@ -83,7 +83,7 @@ $user_detail = $session->get('user_detail') ?? null;
           <li>Bantuan pembuatan multi akun untuk satu perusahaan</li>
         </ul>
       </div>
-    </div>
+    </div> -->
     <div class="row justify-content-end m-4" style="margin-top: 3rem;">
       <div class="col-md-6 p-2 text-end">
         <h2>Tentang Kami</h2>
