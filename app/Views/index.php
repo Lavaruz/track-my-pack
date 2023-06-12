@@ -1,6 +1,3 @@
-<?php
-?>
-
 <?= $this->extend("layout/index") ?>
 
 <?= $this->section("title") ?>
@@ -10,39 +7,44 @@
 <?= $this->endSection() ?>
 
 <?= $this->section("content") ?>
-  <!-- Form Search -->
-  <div class="main-form">
-    <form id="form_search">
-      <input type="text" name="search_resi" id="search_resi" placeholder="Masukan Nomor Resi" style="padding:8px 16px;" />
-      <button type="button" class="btn btn-outline-dark" id="search_submit">Track</button>
-    </form>
-  </div>
-  <!-- End Form Search -->
+<!-- Form Search -->
+<div class="main-form">
+  <form id="form_search">
+    <input type="text" name="search_resi" id="search_resi" placeholder="Masukan Nomor Resi" style="padding:8px 16px;" />
+    <button type="button" class="btn btn-outline-dark" id="search_submit">Track</button>
+  </form>
+</div>
+<!-- End Form Search -->
 
-  <?php if(isset($user_detail) && $user_detail['logged_in']) { ?>
-    <!-- START TABLE SEARCH -->
-    <div class="filter-table">
-      <table id="indexTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>No. Resi</th>
-            <th>Pengirim</th>
-            <th>Penerima</th>
-            <th>Destinasi</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-    <!-- END TABLE SEARCH -->
-  <?php } ?>
+<!-- Data detail -->
+<div id="resi_result" class="table-responsive resi_result mt-2">
+</div>
+<!-- End Data detail -->
+
+<?php if (1 == 0 && isset($user_detail) && $user_detail['logged_in']) { ?>
+  <!-- START TABLE SEARCH -->
+  <div class="filter-table">
+    <table id="indexTable">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>No. Resi</th>
+          <th>Pengirim</th>
+          <th>Penerima</th>
+          <th>Destinasi</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <!-- END TABLE SEARCH -->
+<?php } ?>
 
 <?= $this->endSection() ?>
 
 
 <?= $this->section("post_load") ?>
-<?php if(isset($user_detail) && $user_detail['logged_in']) { ?>
+<?php if (isset($user_detail) && $user_detail['logged_in']) { ?>
   <!-- Datatable Index -->
   <script>
     var indexTable = $("#indexTable").DataTable({
@@ -56,7 +58,7 @@
       // ajax: "/assets/data/list_pengiriman.json",
       ajax: {
         method: 'POST',
-        url: '<?=base_url('/getAllDashboard')?>',
+        url: '<?= base_url('/getAllDashboard') ?>',
         data: function(data) {
           data.search = {
             value: $('#search_resi').val(),
@@ -102,22 +104,72 @@
       getDetail();
     });
 
-    const getDetail = (resi) => {
-      $.ajax({
-        url: '<?=base_url('cekPengirimanResi')?>',
-        type: 'POST',
-        data: {
-          resi: $('#search_resi').val()
-        },
-        success: (res) => {
-          res = JSON.parse(res)
-          status = res.status == 'success' ? 'success' : 'error'
-          swalAlert(status, res.message);
-        },
-        error: (e) => {
-          swalAlert('error', 'Gagal mendapatkan data')
-        }
-      })
+    const getDetail = () => {
+      var data = $('#search_resi').val();
+      if (data && data != '') {
+        $.ajax({
+          url: '<?= base_url('cekPengirimanResi'); ?>',
+          type: 'POST',
+          data: {
+            resi: data
+          },
+          success: (res) => {
+            res = JSON.parse(res);
+            if (res.status == 'success') {
+              $('#resi_result').html('')
+              var data = res.data;
+              var html = `
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>No Resi</th>
+                      <td colspan="3">${data.no_resi}</td>
+                      <th>Tanggal Masuk</th>
+                      <td>${data.tanggal_masuk}</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Pengirim</th>
+                      <td colspan="3">${data.nama_pengirim}</td>
+                      <th>Nomor HP</th>
+                      <td>${data.nomor_pengirim}</td>
+                    </tr>
+                    <tr>
+                      <th>Alamat</th>
+                      <td colspan="5">${data.alamat_pengirim}</td>
+                    </tr>
+                    <tr>
+                      <th>Penerima</th>
+                      <td colspan="3">${data.nama_penerima}</td>
+                      <th>Nomor HP</th>
+                      <td>${data.nomor_penerima}</td>
+                    </tr>
+                    <tr>
+                      <th>Alamat</th>
+                      <td colspan="5">${data.alamat_penerima}</td>
+                    </tr>
+                    <tr>
+                      <th>Nama Barang</th>
+                      <td colspan="3">${data.nama_barang}</td>
+                      <th>Berat</th>
+                      <td>${data.berat_barang} KG</td>
+                    </tr>
+                  </tbody>
+                </table>
+              `;
+              $('#resi_result').html(html);
+            } else {
+              swalAlert('error', res.message);
+            }
+          },
+          error: (e) => {
+            swalAlert('error', 'Gagal mendapatkan data')
+          }
+        })
+      } else {
+        swalAlert('error', 'No Resi tidak boleh kosong!')
+      }
     }
   </script>
 <?php } ?>

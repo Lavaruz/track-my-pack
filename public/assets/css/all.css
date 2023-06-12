@@ -1189,6 +1189,7 @@ table.dataTable tr.odd td {
 
 .nav-main .container-fluid {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 0 4rem;
   align-items: center;
@@ -1236,21 +1237,21 @@ html {
   box-sizing: inherit;
 }
 .container-pengiriman form button {
-  border: none;
-  background-color: #2adba7;
-  border-radius: 5px;
-  padding: 0.5rem 1.5rem;
-  width: 100%;
+  /* border: none; */
+  /* background-color: #2adba7; */
+  float: right;
+  /* border-radius: 5px; */
+  margin:0 10px;
+  /* padding: 0.5rem 1.5rem; */
   transition: 0.3s;
   color: white;
 }
-.container-pengiriman form button:hover {
+/* .container-pengiriman form button:hover {
   background-color: #23ffbd;
-}
+} */
 .container-pengiriman {
-  /* border: 0.2px solid gray; */
   border-radius: 5px;
-  margin: 0 4rem;
+  /* margin: 0 4rem; */
   padding: 1rem;
   display: grid;
   justify-content: center;
@@ -1259,6 +1260,7 @@ html {
   background-color: #ffffff;
   padding: 1rem;
   border: 0.2px solid lightgray;
+  min-width: 55vw;
   margin: 1.5rem 0;
   border-radius: 10px;
   display: grid;
@@ -1338,4 +1340,48 @@ html {
 .profile-perusahaan-select {
   width: 100%;
   padding: 0.5rem 1rem;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.btn-theme-1 {
+  color: #fff !important;
+  background-color: #d45431 !important;
+}
+
+.form-input {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+span.form-required {
+  color: red;
+  font-size: small;
+  vertical-align: text-top;
+}
+
+.resi_result {
+  display:flex;
+  justify-content: center;
+}
+
+.resi_result table {
+  border-collapse:collapse;
+  width: 80%;
+}
+
+.resi_result th {
+  background-color: #dddddd !important;
+}
+
+.resi_result td, th {
+  border: 1px solid #dddddd Im !important;
+  text-align: left;
+  padding: 8px;
 }

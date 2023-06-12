@@ -42,6 +42,7 @@ class Filters extends BaseConfig
                 '/',
                 'logout/',
                 'verify/',
+                'cekPengirimanResi/',
             ]]
         ],
         'after' => [

@@ -53,28 +53,39 @@ class PengirimanModel extends Model
         ";
 
         $builder    = $this->db->table($this->table);
-
         $builder->select($_select);
         $builder->join('pengirim', 'pengirim.id=id_pengirim', 'LEFT');
         $builder->join('penerima', 'penerima.id=id_penerima', 'LEFT');
         $builder->join('status', 'status.id=id_status', 'LEFT');
 
-        $_search    = $data['search'];
+        $builder->where("COALESCE($this->table.is_deleted, '0') != '1'");
+        
+        // Based on User role
+        if($data['role'] == '2') {
+            $builder->where("id_user", $data['user_id']);
+        }
 
+        // Get Total
+        $count      = $builder->countAllResults(false);
+
+        $_search    = $data['search'];
         if($_search) {
             $builder->where("(
-                LOWER(no_resi) LIKE '%$_search%' OR 
-                LOWER(pengirim) LIKE '%$_search%' OR
-                LOWER(penerima) LIKE '%$_search%' OR
-                LOWER(status) LIKE '%$_search%'
+                LOWER($this->table.no_resi) LIKE '%$_search%' OR 
+                LOWER(pengirim.nama) LIKE '%$_search%' OR
+                LOWER(penerima.nama) LIKE '%$_search%' OR
+                LOWER(status.nama) LIKE '%$_search%'
             )");
         }
-        
+
         $builder->orderBy($data['order'], $data['sort']);
 
-        $result     = $builder->get()->getResult();
+        // Get Filtered Total
+        $filtered   = $builder->countAllResults(false);
+        // Get Data
+        $dt         = $builder->get()->getResult();
 
-        return $result;
+        return array('draw' => $_POST['draw'], 'recordsTotal' => $count, 'recordsFiltered' => $filtered, 'data' => $dt);
     }
 
     public function getDetailById($id)
@@ -88,8 +99,22 @@ class PengirimanModel extends Model
     public function getDetailByResi($id)
     {
         $builder = $this->db->table($this->table);
-        $builder->select();
-        $builder->where('LOWER(no_resi)', $id);
+        $builder->select(
+            "$this->table.no_resi, DATE_FORMAT($this->table.tanggal_masuk,'%d-%m-%Y') AS tanggal_masuk,
+            pengirim.nama AS nama_pengirim,
+            pengirim.nomor_hp AS nomor_pengirim,
+            pengirim.alamat AS alamat_pengirim,
+            penerima.nama AS nama_penerima,
+            penerima.nomor_hp AS nomor_penerima,
+            penerima.alamat AS alamat_penerima,
+            status.nama AS status,
+            barang.nama AS nama_barang, barang.berat AS berat_barang"
+        );
+        $builder->join('pengirim', 'pengirim.id=id_pengirim', 'LEFT');
+        $builder->join('penerima', 'penerima.id=id_penerima', 'LEFT');
+        $builder->join('status', 'status.id=id_status', 'LEFT');
+        $builder->join('barang', 'barang.id=id_barang', 'LEFT');
+        $builder->where("LOWER($this->table.no_resi)", $id);
         return $builder->get()->getRow();
     }
 

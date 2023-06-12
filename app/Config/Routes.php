@@ -40,17 +40,34 @@ $routes->get('/logout', 'LoginController::logout');
 $routes->post('/verify', 'LoginController::auth');
 $routes->post('/getAllDashboard', 'Home::getAllDashboard');
 $routes->post('/cekPengirimanResi', 'PengirimanController::getDetailByResi');
+
+// Pengiriman
 $routes->get('/pengiriman', 'PengirimanController::index');
 $routes->get('/pengiriman/tambah', 'PengirimanController::form/add');
-$routes->get('/pengiriman/edit', 'PengirimanController::form/update');
 $routes->get('/pengiriman/edit/(:num)', 'PengirimanController::form/update/$1');
+$routes->get('/pengiriman/view/(:num)', 'PengirimanController::form/view/$1');
+$routes->post('/pengiriman/getAllDashboard', 'PengirimanController::getAllDashboard');
+$routes->post('/pengiriman/tambah', 'PengirimanController::do_add');
+$routes->post('/pengiriman/edit/(:num)', 'PengirimanController::form/do_update/$1');
+
+// Perusahaan
 $routes->get('/perusahaan', 'PerusahaanController::index');
-$routes->get('/perusahaan/tambah', 'PerusahaanController::addForm');
-$routes->get('/perusahaan/edit', 'PerusahaanController::editForm');
+$routes->get('/perusahaan/tambah', 'PerusahaanController::form/add');
+$routes->get('/perusahaan/edit/(:num)', 'PerusahaanController::form/update/$1');
+$routes->get('/perusahaan/view/(:num)', 'PerusahaanController::form/view/$1');
+$routes->post('/pengiriman/getAllDashboard', 'PerusahaanController::getAllDashboard');
+$routes->post('/perusahaan/tambah', 'PerusahaanController::do_add');
+$routes->post('/perusahaan/edit/(:num)', 'PerusahaanController::do_update/$1');
+
+// User
 $routes->get('/user', 'UserController::index');
-$routes->get('/user/tambah', 'UserController::addForm');
-$routes->get('/user/edit', 'UserController::editForm');
+$routes->get('/user/tambah', 'UserController::form/add');
+$routes->get('/user/edit/(:num)', 'UserController::form/edit/$1');
+$routes->get('/user/profil/(:num)', 'UserController::form/view/$1');
 $routes->get('/profil', 'UserController::profil');
+$routes->post('/user/getAllDashboard', 'UserController::getAllDashboard');
+$routes->post('/user/tambah', 'UserController::do_add');
+$routes->post('/user/edit/(:num)', 'UserController::do_update/$1');
 
 
 // Language API
