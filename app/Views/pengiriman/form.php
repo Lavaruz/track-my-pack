@@ -1,7 +1,7 @@
 <?php
   $view = false;
   $disabled = "";
-  if($action != 'do_add') $disabled = 'disabled';
+  if($action != 'do_add' && $action != 'do_update') $disabled = 'disabled';
   if($action == 'do_view') $view = true;
 ?>
 
@@ -9,25 +9,38 @@
 
 <?= $this->section("content") ?>
 <div class="container-pengiriman">
-  <h2>From Pengiriman Barang</h2>
+  <h2>From Pengiriman Barang<?=isset($data['pengiriman_resi']) ? ': '.$data['pengiriman_resi'] : '' ?></h2>
   <form id="form-pengiriman">
     <input type="hidden" name="pengiriman_id" value="<?=$data['pengiriman_id'] ?? ''?>">
     <input type="hidden" name="action" value="<?=$action?>">
+
+    <?php if($action != 'do_add') { ?>
+      <div class="form-pengiriman-data">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="mb-3 form-input">
+              <label for="status">Status</label>
+              <input type="text" name="status" value="<?=$data['status'] ?? ''?>" class="form-control" id="status" <?=$disabled?>>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php } ?>
 
     <!-- Pengirim -->
     <div class="form-pengiriman-data">
       <h3>Data Pengirim <span class="form-required" style="vertical-align: baseline;">* harus diisi</span></h3>
       <div class="mb-3 form-input">
         <label for="pengirim-nama" class="form-label">Nama <span class="form-required">*</span></label>
-        <input type="text" name="pengirim_nama" id="pengirim-nama" value="<?=$data['pengirim_nama'] ?? ''?>" class="form-control" placeholder="Masukan Nama Pengirim" <?=$disabled?>>
+        <input type="text" name="pengirim_nama" id="pengirim-nama" value="<?=$data['nama_pengirim'] ?? ''?>" class="form-control" placeholder="Masukan Nama Pengirim" <?=$disabled?>>
       </div>
       <div class="mb-3 form-input">
         <label for="pengirim-tlp" class="form-label">No.Telp <span class="form-required">*</span></label>
-        <input type="text" name="pengirim_nomor_hp" id="pengirim-tlp" value="<?=$data['pengirim_nomor_hp'] ?? ''?>" class="form-control form-telp" placeholder="Masukan Nomor HP Pengirim" <?=$disabled?>>
+        <input type="text" name="pengirim_nomor_hp" id="pengirim-tlp" value="<?=$data['nomor_pengirim'] ?? ''?>" class="form-control form-telp" placeholder="Masukan Nomor HP Pengirim" <?=$disabled?>>
       </div>
       <div class="mb-3 form-input">
         <label for="pengirim-alamat" class="form-label">Alamat <span class="form-required">*</span></label>
-        <textarea name="pengirim_alamat" id="pengirim-alamat" class="form-control" placeholder="Masukan Alamat Pengirim" cols="30" rows="3" <?=$disabled?>><?=$data['pengirim_alamat'] ?? ''?></textarea>
+        <textarea name="pengirim_alamat" id="pengirim-alamat" class="form-control" placeholder="Masukan Alamat Pengirim" cols="30" rows="3" <?=$disabled?>><?=$data['alamat_pengirim'] ?? ''?></textarea>
       </div>
     </div>
     <!-- Penerima -->
@@ -35,15 +48,15 @@
       <h3>Data Penerima <span class="form-required" style="vertical-align: baseline;">* harus diisi</span></h3>
       <div class="mb-3 form-input">
         <label for="penerima-nama">Nama <span class="form-required">*</span></label>
-        <input type="text" name="penerima_nama" id="penerima-nama" value="<?=$data['penerima_nama'] ?? ''?>" class="form-control" placeholder="Masukan Nama Penerima" <?=$disabled?>>
+        <input type="text" name="penerima_nama" id="penerima-nama" value="<?=$data['nama_penerima'] ?? ''?>" class="form-control" placeholder="Masukan Nama Penerima" <?=$disabled?>>
       </div>
       <div class="mb-3 form-input">
         <label for="penerima-tlp">No.Telp <span class="form-required">*</span></label>
-        <input type="text" name="penerima_nomor_hp" id="penerima-tlp" value="<?=$data['penerima_nomor_hp'] ?? ''?>" class="form-control form-telp" placeholder="Masukan Nomor HP Penerima" <?=$disabled?>>
+        <input type="text" name="penerima_nomor_hp" id="penerima-tlp" value="<?=$data['nomor_penerima'] ?? ''?>" class="form-control form-telp" placeholder="Masukan Nomor HP Penerima" <?=$disabled?>>
       </div>
       <div class="mb-3 form-input">
         <label for="penerima-alamat">Alamat <span class="form-required">*</span></label>
-        <textarea name="penerima_alamat" id="penerima-alamat" class="form-control" placeholder="Masukan Alamat Penerima" cols="30" rows="3" <?=$disabled?>><?=$data['penerima_alamat'] ?? ''?></textarea>
+        <textarea name="penerima_alamat" id="penerima-alamat" class="form-control" placeholder="Masukan Alamat Penerima" cols="30" rows="3" <?=$disabled?>><?=$data['alamat_penerima'] ?? ''?></textarea>
       </div>
     </div>
     <!-- Barang -->
@@ -52,44 +65,32 @@
         <h3>Data Barang <span class="form-required" style="vertical-align: baseline;">* harus diisi</span></h3>
       </div>
       <div class="row">
-        <?php if($action == 'do_add') { ?>
-          <div class="col-md-12">
-            <div class="mb-3 form-input">
-                <label for="barang-nama">Nama <span class="form-required">*</span></label>
-                <input type="text" name="barang_nama" id="barang-nama" class="form-control" placeholder="Masukan Nama Barang">
-              </div>
-              <div class="mb-3 form-input">
-                <label for="barang-berat">Berat (KG) <span class="form-required">*</span></label>
-                <input type="number" name="barang_berat" id="barang-berat" min="0" class="form-control" placeholder="Masukan Berat Barang">
-              </div>
-            </div>
-        <?php } else { ?>
-          
-          <div class="col-md-6">
-            <div class="mb-3 form-input">
-              <label for="barang-nama">Nama <span class="form-required">*</span></label>
-              <input type="text" name="barang_nama" id="barang-nama" value="<?=$data['barang_nama'] ?? ''?>" class="form-control" placeholder="Masukan Nama Barang" <?=$disabled?>>
-            </div>
-            <div class="mb-3 form-input">
-              <label for="barang-berat">Berat (KG) <span class="form-required">*</span></label>
-              <input type="number" name="barang_berat" id="barang-berat" min="0" value="<?=$data['barang_berat'] ?? ''?>" class="form-control" placeholder="Masukan Berat Barang" <?=$disabled?>>
-            </div>
-          </div>
 
+        <div class="col-md-<?=$action == 'do_add' ? '12' : '6'?>">
+          <div class="mb-3 form-input">
+            <label for="barang-nama">Nama <span class="form-required">*</span></label>
+            <input type="text" name="barang_nama" id="barang-nama" value="<?=$data['nama_barang'] ?? ''?>" class="form-control" placeholder="Masukan Nama Barang" <?=$disabled?>>
+          </div>
+          <div class="mb-3 form-input">
+            <label for="barang-berat">Berat (KG) <span class="form-required">*</span></label>
+            <input type="number" name="barang_berat" id="barang-berat" min="0" value="<?=$data['berat_barang'] ?? ''?>" class="form-control" placeholder="Masukan Berat Barang" <?=$disabled?>>
+          </div>
+        </div>
+
+        <?php if($action != 'do_add') { ?>
           <div class="col-md-6">
             <div class="mb-3 form-input">
               <label for="barang-tgl-masuk">Tanggal Masuk</label>
-              <input type="date" name="barang_tgl_masuk" value="<?=$data['barang_tgl_masuk'] ?? ''?>" class="form-control" id="barang-tgl-masuk" <?=$disabled?>>
+              <input type="date" name="barang_tgl_masuk" value="<?=$data['tanggal_masuk'] ?? ''?>" class="form-control" id="barang-tgl-masuk" <?=$disabled?>>
             </div>
             <div class="mb-3 form-input">
               <label for="barang-tgl-keluar">Tanggal Keluar</label>
-              <input type="date" name="barang_tgl_keluar" value="<?=$data['barang_tgl_keluar'] ?? ''?>" class="form-control" id="barang-tgl-keluar" <?=$disabled?>>
+              <input type="date" name="barang_tgl_keluar" value="<?=$data['tanggal_keluar'] ?? ''?>" class="form-control" id="barang-tgl-keluar" <?=$disabled?>>
             </div>
           </div>
-
         <?php } ?>
-      </div>
 
+      </div>
     </div>
 
     <!-- Button -->

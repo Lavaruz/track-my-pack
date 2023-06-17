@@ -32,10 +32,12 @@ if($user_detail['id_role'] == '2') {
         <tr>
           <th>No</th>
           <th>No. Resi</th>
+          <th>Tanggal Masuk</th>
           <th>Pengirim</th>
           <th>Penerima</th>
           <th>Destinasi</th>
           <th>Status</th>
+          <th>Aksi</th>
         </tr>
       </thead>
     </table>
@@ -77,6 +79,10 @@ if($user_detail['id_role'] == '2') {
         orderable: true,
       },
       {
+        data: "tanggal_masuk",
+        orderable: true,
+      },
+      {
         data: "pengirim",
         orderable: true,
       },
@@ -91,6 +97,22 @@ if($user_detail['id_role'] == '2') {
       {
         data: "status",
         orderable: true,
+      },
+      {
+        data: "no_resi",
+        orderable: false,
+        sWidth: "10%",
+        render: function(data, type, row) {
+          edval = '<div class="btn-group">';
+          if(row.cuser_id == '<?=$user_detail['user_id']?>') {
+            edval += `<a href="<?= base_url('/pengiriman/edit') ?>/${row.no_resi}" class="btn-sm btn-success">Detail</a>`;
+            edval += `<a href="<?= base_url('/pengiriman/detail') ?>/${row.no_resi}" class="btn-sm btn-danger">Hapus</a>`;
+          } else {
+            edval += `<a href="<?= base_url('/pengiriman/view') ?>/${row.no_resi}" class="btn-sm btn-success">Detail</a>`;
+          }
+          edval += '</div>';
+          return edval;
+        }
       },
     ],
   });

@@ -78,8 +78,8 @@ class PengirimanController extends BaseController
         if($action == 'update' || $action == 'view') {
             if($id == '') throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Halaman tidak ditemukan');
 
-            $detail = $this->pengirimanModel->getDetailById($id);
-            if(!$detail) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('ID tidak ditemukan');
+            $detail = $this->pengirimanModel->getDataByResi(strtolower($id));
+            if(!$detail) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No Resi tidak ditemukan');
 
             $data['data'] = $detail;
         }

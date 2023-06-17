@@ -44,8 +44,8 @@ $routes->post('/cekPengirimanResi', 'PengirimanController::getDetailByResi');
 // Pengiriman
 $routes->get('/pengiriman', 'PengirimanController::index');
 $routes->get('/pengiriman/tambah', 'PengirimanController::form/add');
-$routes->get('/pengiriman/edit/(:num)', 'PengirimanController::form/update/$1');
-$routes->get('/pengiriman/view/(:num)', 'PengirimanController::form/view/$1');
+$routes->get('/pengiriman/edit/(:segment)', 'PengirimanController::form/update/$1');
+$routes->get('/pengiriman/view/(:segment)', 'PengirimanController::form/view/$1');
 $routes->post('/pengiriman/getAllDashboard', 'PengirimanController::getAllDashboard');
 $routes->post('/pengiriman/tambah', 'PengirimanController::do_add');
 $routes->post('/pengiriman/edit/(:num)', 'PengirimanController::form/do_update/$1');

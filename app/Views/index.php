@@ -124,8 +124,8 @@
                     <tr>
                       <th>No Resi</th>
                       <td colspan="3">${data.no_resi}</td>
-                      <th>Tanggal Masuk</th>
-                      <td>${data.tanggal_masuk}</td>
+                      <th>Status</th>
+                      <td><b>${data.status}<b></td>
                     </tr>
                   </thead>
                   <tbody>
@@ -155,6 +155,14 @@
                       <th>Berat</th>
                       <td>${data.berat_barang} KG</td>
                     </tr>
+                    <thead>
+                      <tr>
+                        <th>Tanggal Masuk</th>
+                        <td colspan="3">${data.tanggal_masuk}</td>
+                        <th>Tanggal Keluar</th>
+                        <td colspan="3">${data.tanggal_keluar}</td>
+                      </tr>
+                    </thead>
                   </tbody>
                 </table>
               `;

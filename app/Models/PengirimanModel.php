@@ -46,10 +46,20 @@ class PengirimanModel extends Model
         $_select    = "
             ROW_NUMBER() OVER (ORDER BY $this->table.id) AS no,
             no_resi,
+            (CASE WHEN $this->table.tanggal_masuk != '' 
+                THEN DATE_FORMAT($this->table.tanggal_masuk,'%Y-%m-%d')
+                ELSE '-' END
+            ) AS tanggal_masuk,
+            (CASE WHEN $this->table.tanggal_keluar != ''
+                THEN DATE_FORMAT($this->table.tanggal_keluar,'%Y-%m-%d')
+                ELSE '-' END
+            ) AS tanggal_keluar,
+            $this->table.cuser_id,
             pengirim.nama AS pengirim,
             penerima.nama AS penerima,
             penerima.alamat AS destinasi,
-            status.nama AS status
+            status.nama AS status,
+            $this->table.id
         ";
 
         $builder    = $this->db->table($this->table);
@@ -96,11 +106,52 @@ class PengirimanModel extends Model
         return $builder->get()->getRow();
     }
 
+    public function getDataByResi($id)
+    {
+        $builder = $this->db->table($this->table);
+        $builder->select(
+            "$this->table.id AS pengiriman_id,
+            $this->table.no_resi AS pengiriman_resi, 
+            (CASE WHEN $this->table.tanggal_masuk != '' 
+                THEN DATE_FORMAT($this->table.tanggal_masuk,'%Y-%m-%d')
+                ELSE '-' END
+            ) AS tanggal_masuk,
+            (CASE WHEN $this->table.tanggal_keluar != ''
+                THEN DATE_FORMAT($this->table.tanggal_keluar,'%Y-%m-%d')
+                ELSE '-' END
+            ) AS tanggal_keluar,
+            pengirim.nama AS nama_pengirim,
+            pengirim.nomor_hp AS nomor_pengirim,
+            pengirim.alamat AS alamat_pengirim,
+            penerima.nama AS nama_penerima,
+            penerima.nomor_hp AS nomor_penerima,
+            penerima.alamat AS alamat_penerima,
+            status.nama AS status,
+            barang.nama AS nama_barang, barang.berat AS berat_barang
+            "
+        );
+        $builder->join('pengirim', 'pengirim.id=id_pengirim', 'LEFT');
+        $builder->join('penerima', 'penerima.id=id_penerima', 'LEFT');
+        $builder->join('status', 'status.id=id_status', 'LEFT');
+        $builder->join('barang', 'barang.id=id_barang', 'LEFT');
+
+        $builder->where('LOWER(no_resi)', $id);
+        return $builder->get()->getRowArray();
+    }
+
     public function getDetailByResi($id)
     {
         $builder = $this->db->table($this->table);
         $builder->select(
-            "$this->table.no_resi, DATE_FORMAT($this->table.tanggal_masuk,'%d-%m-%Y') AS tanggal_masuk,
+            "$this->table.no_resi, 
+            (CASE WHEN $this->table.tanggal_masuk != '' 
+                THEN DATE_FORMAT($this->table.tanggal_masuk,'%d-%m-%Y')
+                ELSE '-' END
+            ) AS tanggal_masuk,
+            (CASE WHEN $this->table.tanggal_keluar != ''
+                THEN DATE_FORMAT($this->table.tanggal_keluar,'%d-%m-%Y')
+                ELSE '-' END
+            ) AS tanggal_keluar,
             pengirim.nama AS nama_pengirim,
             pengirim.nomor_hp AS nomor_pengirim,
             pengirim.alamat AS alamat_pengirim,
