@@ -3,39 +3,40 @@
 <div class="container-profile">
     <form id="form-profile">
         <div class="profile-data">
-            <h2>Profile Perusahaan</h2>
-            <label for="">
-                Nama:
-                <input type="text" name="" id="" placeholder="masukan nama">
-            </label>
-            <div class="profile-data-side">
-                <label for="">
-                    Email:
-                    <input type="text" name="" id="" placeholder="masukan email">
-                </label>
-                <label for="">
-                    Password:
-                    <input type="password" name="" id="" placeholder="masukan password">
-                </label>
+            <h2>Profile Perusahaan <span class="form-required" style="vertical-align: baseline;">* harus diisi</h2>
+            <div class="mb-3">
+                <label for="" class="form-label">Nama <span class="form-required">*</span></label>
+                <input type="text" class="form-control" name="" id="" placeholder="masukan nama">
             </div>
-            <label for="">
-                No.Telp:
-                <input type="text" name="" id="" placeholder="masukan no.telp">
-            </label>
-            <label for="">
-                Alamat:
-                <input type="text" name="" id="" placeholder="masukan alamat">
-            </label>
-            <label for="">
-                Company/Perusahaan:
-                <select class="profile-perusahaan-select" name="state">
-                    <option></option>
-                    <option value="AL">Alabama</option>
-                    <option value="WY">Wyoming</option>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="" class="form-label">Email <span class="form-required">*</span></label>
+                    <input type="text" class="form-control" name="" id="" placeholder="masukan email">
+                </div>
+                <div class="col">
+                    <label for="" class="form-label">Password <span class="form-required">*</span></label>
+                    <input type="password" class="form-control" name="" id="" placeholder="masukan password">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">No.Telp <span class="form-required">*</span></label>
+                <input type="text" class="form-control" name="" id="" placeholder="masukan nomor telephone">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Alamat <span class="form-required">*</span></label>
+                <textarea name="penerima_alamat" id="" class="form-control" placeholder="Masukan Alamat Perusahaan" cols="30" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="">Company/Perusahaan <span class="form-required">*</span></label>
+                <select class="form-select" name="state">
+                    <option value="AL" selected="selected">-- Pilih perusahaan --</option>
+                    <option>Alabama</option>
+                    <option>Wyoming</option>
                 </select>
-            </label>
-            <button>Simpan</button>
+            </div>
         </div>
+        <button role="button" id="form-submit" class="btn btn-primary">Simpan</button>
+        <a role="button" class="btn btn-danger" href="<?=base_url('pengiriman')?>" style="float:right; margin-top:1rem">Batal</a>
   </form>
 </div>
 <script>

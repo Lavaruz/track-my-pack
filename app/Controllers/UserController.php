@@ -8,7 +8,7 @@ class UserController extends BaseController
 {
     public function index()
     {
-        //
+        return view('user/form');
     }
 
     public function profile()

@@ -1241,7 +1241,7 @@ html {
   /* background-color: #2adba7; */
   float: right;
   /* border-radius: 5px; */
-  margin:0 10px;
+  margin: 0 10px;
   /* padding: 0.5rem 1.5rem; */
   transition: 0.3s;
   color: white;
@@ -1294,7 +1294,18 @@ html {
 /* PROFIL */
 .container-profile {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  margin: 0 20rem;
+  margin: 2rem 5rem;
+  border-radius: 10px;
+}
+.container-profile form button {
+  /* border: none; */
+  /* background-color: #2adba7; */
+  float: right;
+  /* border-radius: 5px; */
+  margin: 1rem 10px;
+  /* padding: 0.5rem 1.5rem; */
+  transition: 0.3s;
+  color: white;
 }
 .profile-info {
   background-color: #f6f6f6;
@@ -1367,12 +1378,12 @@ span.form-required {
 }
 
 .resi_result {
-  display:flex;
+  display: flex;
   justify-content: center;
 }
 
 .resi_result table {
-  border-collapse:collapse;
+  border-collapse: collapse;
   width: 80%;
 }
 
@@ -1380,7 +1391,8 @@ span.form-required {
   background-color: #dddddd !important;
 }
 
-.resi_result td, th {
+.resi_result td,
+th {
   border: 1px solid #dddddd Im !important;
   text-align: left;
   padding: 8px;
