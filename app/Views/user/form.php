@@ -8,10 +8,18 @@
                 <label for="" class="form-label">Nama <span class="form-required">*</span></label>
                 <input type="text" class="form-control" name="" id="" placeholder="masukan nama">
             </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Email <span class="form-required">*</span></label>
+                <input type="text" class="form-control" name="" id="" placeholder="masukan email">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">No.Telp <span class="form-required">*</span></label>
+                <input type="text" class="form-control" name="" id="" placeholder="masukan nomor telephone">
+            </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="" class="form-label">Email <span class="form-required">*</span></label>
-                    <input type="text" class="form-control" name="" id="" placeholder="masukan email">
+                    <label for="" class="form-label">Username <span class="form-required">*</span></label>
+                    <input type="text" class="form-control" name="" id="" placeholder="masukan username">
                 </div>
                 <div class="col">
                     <label for="" class="form-label">Password <span class="form-required">*</span></label>
@@ -19,20 +27,8 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="" class="form-label">No.Telp <span class="form-required">*</span></label>
-                <input type="text" class="form-control" name="" id="" placeholder="masukan nomor telephone">
-            </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Alamat <span class="form-required">*</span></label>
-                <textarea name="penerima_alamat" id="" class="form-control" placeholder="Masukan Alamat Perusahaan" cols="30" rows="3"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="">Company/Perusahaan <span class="form-required">*</span></label>
-                <select class="form-select" name="state">
-                    <option value="AL" selected="selected">-- Pilih perusahaan --</option>
-                    <option>Alabama</option>
-                    <option>Wyoming</option>
-                </select>
+                <label for="" class="form-label">Role</label>
+                <input type="text" class="form-control" name="" id="" placeholder="masukan username" value="Pengirim" disabled>
             </div>
         </div>
         <button role="button" id="form-submit" class="btn btn-primary">Simpan</button>
