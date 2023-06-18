@@ -36,7 +36,7 @@ class PengirimanController extends BaseController
         $session = session();
         $config['session'] = $session->get('user_detail');
 
-        return view('pengiriman/index');
+        return view('pengiriman/index', $config);
     }
 
     /**

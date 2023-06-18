@@ -31,10 +31,10 @@ $user_detail = $session->get('user_detail') ?? null;
   <script src="<?= base_url('/assets/js/jquery-validate.js') ?>"></script>
 
   <!-- Select2 -->
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="<?= base_url('/assets/css/select2.min.css') ?>" />
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="<?= base_url('/assets/js/select2.min.js') ?>"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <!-- Bootstrap -->
   <script src="<?= base_url('/assets/plugins/bootstrap/js/bootstrap.min.js') ?>"></script>
@@ -62,7 +62,7 @@ $user_detail = $session->get('user_detail') ?? null;
   <!-- END NAV -->
 
   <!-- START MAIN  -->
-  <div class="wrapper-box" style="/* margin: 2rem; */ min-height:80vh;">
+  <div class="wrapper-box" style="min-height:80vh;">
     <?= $this->renderSection('title') ?>
     <div class="container-md">
       <?= $this->renderSection('content') ?>

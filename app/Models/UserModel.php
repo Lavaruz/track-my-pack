@@ -51,6 +51,67 @@ class UserModel extends Model
     // End of Settings
 
     /**
+     * GET semua data laporan pengiriman berdasarkan user role
+     */
+    public function getAllDashboard($data)
+    {
+        $_select    = "
+            ROW_NUMBER() OVER (ORDER BY $this->table.id) AS no,
+            $this->table.id,
+            $this->table.nama,
+            $this->table.email,
+            $this->table.nomor_hp,
+            $this->table.username,
+            roles.nama_role
+        ";
+
+        $builder    = $this->db->table($this->table);
+        $builder->select($_select);
+        $builder->join('roles', 'roles.id=id_role', 'LEFT');
+
+        $builder->where("COALESCE($this->table.is_deleted, '0') != '1'");
+        
+        // Based on User role
+        if($data['role'] == '2') {
+            $builder->where("id_user", $data['user_id']);
+        }
+
+        // Get Total
+        $count      = $builder->countAllResults(false);
+
+        $_search    = $data['search'];
+        if($_search) {
+            $builder->where("(
+                LOWER($this->table.nama) LIKE LOWER('%$_search%') OR 
+                LOWER($this->table.username) LIKE LOWER('%$_search%') OR
+                LOWER($this->table.email) LIKE LOWER('%$_search%') OR
+                LOWER($this->table.nomor_hp) LIKE '%$_search%' OR
+                LOWER(roles.nama_role) LIKE LOWER('%$_search%')
+            )");
+        }
+
+        $builder->orderBy($data['order'], $data['sort']);
+
+        // Get Filtered Total
+        $filtered   = $builder->countAllResults(false);
+        // Get Data
+        $dt         = $builder->get()->getResult();
+
+        return array('draw' => $_POST['draw'], 'recordsTotal' => $count, 'recordsFiltered' => $filtered, 'data' => $dt);
+    }
+
+    
+    public function getDetailById($id)
+    {
+        $builder = $this->db->table($this->table);
+        $builder->select("$this->table.*, roles.nama_role");
+        $builder->join("roles", "roles.id = $this->table.id_role", "LEFT");
+        $builder->where('id', $id);
+        return $builder->get()->getRow();
+    }
+
+
+    /**
      * Menambah data baru
      * @param mixed $data Berisi data pengguna wajib seperti nama, username, password dll
      * @return array Response
@@ -83,10 +144,9 @@ class UserModel extends Model
      * @param mixed $data Berisi data pengguna wajib seperti nama, username, password dll
      * @return array Response
      */
-    public function do_update($id, $data) {
+    public function do_update($id, $data = []) {
         $status     = 'success';
         $message    = 'Data berhasil diubah';
-        $data       = '';
 
         if(isset($id)) {
             try {
@@ -111,10 +171,9 @@ class UserModel extends Model
      * @param mixed $data berisi dtime, duser_id, dan flag is_deleted = ('1')
      * @return array Response
      */
-    public function do_delete($id, $data) {
+    public function do_delete($id, $data = ['is_deleted' => '1']) {
         $status     = 'success';
         $message    = 'Data berhasil dihapus';
-        $data       = '';
 
         if(isset($id)) {
             try {

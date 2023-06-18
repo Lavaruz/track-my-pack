@@ -449,6 +449,6 @@ class App extends BaseConfig
         parent::__construct();
 
         // defined('ENVIRONMENT') || define('ENVIRONMENT', getenv('app_env'));
-        $this->baseURL = getenv('app_host');
+        $this->baseURL = getenv('app.baseURL');
     }
 }
