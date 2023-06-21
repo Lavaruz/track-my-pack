@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\PerusahaanModel;
 use App\Models\RoleModel;
 use App\Models\UserModel;
 use CodeIgniter\HTTP\RequestInterface;
@@ -13,6 +14,7 @@ class UserController extends BaseController
 {
     protected $userModel;
     protected $roleModel;
+    protected $perusahaanModel;
 
     /**
      * Proses inisiasi Controller
@@ -23,6 +25,7 @@ class UserController extends BaseController
 
         $this->userModel = new UserModel();
         $this->roleModel = new RoleModel();
+        $this->perusahaanModel = new PerusahaanModel();
     }
 
     public function index()
@@ -70,6 +73,8 @@ class UserController extends BaseController
 
         $data = array();
         $data['action'] = "do_$action";
+        $data['role'] = $this->roleModel->select(['id', 'nama_role'])->where("is_deleted != '1'")->findAll();
+        $data['perusahaan'] = $this->perusahaanModel->select(['id', 'nama'])->where("is_deleted != '1'")->findAll();
         $data['data'] = [];
 
         if($action == 'update' || $action == 'view') {
@@ -79,9 +84,8 @@ class UserController extends BaseController
             if(!$detail) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('ID tidak ditemukan');
 
             $data['data'] = $detail;
-            $data['role'] = $this->roleModel->select(['id', 'nama_role'])->where("is_deleted != '1'")->findAll();
         }
-
+        
         return view('user/form', $data);
     }
 
@@ -95,17 +99,17 @@ class UserController extends BaseController
         $message = '';
 
         $data = [
-            'nama'              => $this->request->getVar(''),
-            'email'             => $this->request->getVar(''),
-            'nomor_hp'          => $this->request->getVar(''),
-            'username'          => $this->request->getVar(''),
-            'password'          => $this->request->getVar(''),
-            'id_role'           => $this->request->getVar(''),
-            'id_perusahaan'     => $this->request->getVar(''),
+            'nama'              => $this->request->getVar('nama'),
+            'email'             => $this->request->getVar('email') ?? null,
+            'nomor_hp'          => $this->request->getVar('nomor_hp') ?? null,
+            'username'          => $this->request->getVar('username'),
+            'password'          => password_hash($this->request->getVar('password') ?? 'tmp2023', PASSWORD_DEFAULT),
+            'id_role'           => $this->request->getVar('id_role'),
+            'id_perusahaan'     => $this->request->getVar('id_perusahaan'),
             'cuser_id'          => $user_detail['user_id'],
             'is_deleted'        => '0',
         ];
-        
+
         $res = $this->userModel->insert($data);
         if($res) {
             $status = 'success';
@@ -116,71 +120,68 @@ class UserController extends BaseController
         echo json_encode($result);
     }
 
-    // public function do_update($id)
-    // {
-    //     $session = session();
-    //     $user_detail = $session->get('user_detail');
+    public function do_update($id)
+    {
+        $session = session();
+        $user_detail = $session->get('user_detail');
 
-    //     $result = array();
-    //     $status = 'failed';
-    //     $message = '';
-    //     $data = [];
+        $result = array();
+        $status = 'failed';
+        $message = '';
+        $data = [
+            'nama'              => $this->request->getVar('nama'),
+            'email'             => $this->request->getVar('email') ?? null,
+            'nomor_hp'          => $this->request->getVar('nomor_hp') ?? null,
+            'username'          => $this->request->getVar('username'),
+            'id_role'           => $this->request->getVar('id_role'),
+            'id_perusahaan'     => $this->request->getVar('id_perusahaan'),
+            'muser_id'          => $user_detail['user_id'],
+            'mtime'             => date('Y-m-d H:i:s'),
+        ];
 
-    //     // Pengirim
-    //     $pengirim_id = $this->pengirimModel->find($id);
-    //     print_r($pengirim_id);die();
-    //     $pengirim_data = [
-    //         'nama'      => $this->request->getVar('pengirim_nama'),
-    //         'nomor_hp'  => $this->request->getVar('pengirim_nomor_hp'),
-    //         'alamat'    => $this->request->getVar('pengirim_alamat'),
-    //         'musr_id'   => $user_detail['user_id'],
-    //         'mtime'     => date('Y-m-d H:i:s'),
-    //     ];
-    //     $pengirim_id = $this->pengirimModel->update($pengirim_data);
+        if($this->request->getVar('password') != '') {
+            $data['password'] = password_hash($this->request->getVar('password'), PASSWORD_DEFAULT);
+        }
 
-    //     // Penerima
-    //     $penerima_data = [
-    //         'nama'      => $this->request->getVar('penerima_nama'),
-    //         'nomor_hp'  => $this->request->getVar('penerima_nomor_hp'),
-    //         'alamat'    => $this->request->getVar('penerima_alamat'),
-    //         'musr_id'   => $user_detail['user_id'],
-    //         'mtime'     => date('Y-m-d H:i:s'),
-    //     ];
-    //     $penerima_id = $this->penerimaModel->insert($penerima_data);
+        $res = $this->userModel->update($id, $data);
+        if($res) {
+            $status = 'success';
+            $message = 'Data sukses tersimpan';
+        }
 
-    //     // Barang
-    //     $barang_data = [
-    //         'nama'      => $this->request->getVar('barang_nama'),
-    //         'berat'     => $this->request->getVar('barang_berat'),
-    //         'is_deleted'=> '0',
-    //         'cusr_id'   => $user_detail['user_id'],
-    //     ];
-    //     $barang_id = $this->barangModel->insert($barang_data);
+        $result = array('status' => $status, 'message' => $message);
+        echo json_encode($result);
+    }
 
-    //     $rand = strtoupper($this->generate_uuid());
-    //     $resi = 'TMP'.date('Ym').$rand;
+    public function do_delete()
+    {
+        $session = session();
+        $user_detail = $session->get('user_detail');
 
-    //     $data = [
-    //         'no_resi'           => $resi,
-    //         'id_pengirim'       => $pengirim_id,
-    //         'id_penerima'       => $penerima_id,
-    //         'id_barang'         => $barang_id,
-    //         'id_user'           => $user_detail['user_id'],
-    //         'tanggal_masuk'     => date('Y-m-d'),
-    //         'id_status'         => '1',
-    //         'cuser_id'          => $user_detail['user_id'],
-    //         'is_deleted'        => '0',
-    //     ];
-        
-    //     $res = $this->pengirimanModel->do_add($data);
-    //     if($res) {
-    //         $status = 'success';
-    //         $message = 'Data sukses tersimpan';
-    //     }
+        $result = array();
+        $status = 'failed';
+        $message = 'Data tidak ditemukan';
+        $data = [];
 
-    //     $result = array('status' => $status, 'message' => $message);
-    //     echo json_encode($result);
-    // }
+        $id   = $this->request->getVar('id');
+
+        if(isset($id) && $id != '') {
+            $data = [
+                'duser_id'          => $user_detail['user_id'],
+                'dtime'             => date('Y-m-d H:i:s'),
+                'is_deleted'        => '1',
+            ];
+            
+            $res = $this->userModel->update($id, $data);
+            if($res) {
+                $status = 'success';
+                $message = 'Data sukses terhapus';
+            }
+        }
+
+        $result = array('status' => $status, 'message' => $message);
+        echo json_encode($result);
+    }
 
     public function getDetailById($id)
     {

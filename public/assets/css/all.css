@@ -1209,6 +1209,11 @@ table.dataTable tr.odd td {
   color: red;
 }
 
+.valid-block {
+  font-size: small;
+  color: green;
+}
+
 .prevent-select {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */

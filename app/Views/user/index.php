@@ -56,7 +56,7 @@ if($user_detail['id_role'] == '1') {
     searching: true,
     pagingNUmber: 'simple_numbers',
     bFilter: true,
-    order: ['1', 'ASC'],
+    order: ['0', 'ASC'],
     ajax: {
       method: 'POST',
       url: '<?= base_url('user/getAllDashboard') ?>',

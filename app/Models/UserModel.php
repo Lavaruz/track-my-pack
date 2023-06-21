@@ -21,7 +21,16 @@ class UserModel extends Model
         "nomor_hp",
         "username",
         "password",
+        "alamat",
         "id_role",
+        "id_perusahaan",
+        'ctime',
+        'cuser_id',
+        'mtime',
+        'muser_id',
+        'dtime',
+        'duser_id',
+        'is_deleted',
     ];
 
     // Settings

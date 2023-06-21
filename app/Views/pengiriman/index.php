@@ -57,7 +57,7 @@ if($user_detail['id_role'] == '2') {
     searching: true,
     pagingNUmber: 'simple_numbers',
     bFilter: true,
-    order: ['1', 'ASC'],
+    order: ['0', 'ASC'],
     // ajax: "/assets/data/list_pengiriman.json",
     ajax: {
       method: 'POST',
