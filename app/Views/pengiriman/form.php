@@ -9,7 +9,7 @@
 
 <?= $this->section("content") ?>
 <div class="container-pengiriman">
-  <h2>From Pengiriman Barang<?=isset($data['pengiriman_resi']) ? ': '.$data['pengiriman_resi'] : '' ?></h2>
+  <h2>Form Pengiriman Barang<?=isset($data['pengiriman_resi']) ? ': '.$data['pengiriman_resi'] : '' ?></h2>
   <form id="form-pengiriman">
     <input type="hidden" name="pengiriman_id" value="<?=$data['pengiriman_id'] ?? ''?>">
     <input type="hidden" name="action" value="<?=$action?>">
@@ -19,8 +19,14 @@
         <div class="row">
           <div class="col-md-12">
             <div class="mb-3 form-input">
-              <label for="status">Status</label>
-              <input type="text" name="status" value="<?=$data['status'] ?? ''?>" class="form-control" id="status" <?=$disabled?>>
+              <label for="status" class="form-label">Status <span class="form-required">*</span></label>
+              <select name="status" id="status" class="form-control" <?=$disabled?>>
+                <option value=""></option>
+                <?php foreach($status as $sv) {
+                  $selected = ($data['id_status'] == $sv['id']) ? 'selected' : '';
+                  echo "<option value='$sv[id]' $selected>$sv[nama]</option>";
+                } ?>
+              </select>
             </div>
           </div>
         </div>
@@ -80,12 +86,12 @@
         <?php if($action != 'do_add') { ?>
           <div class="col-md-6">
             <div class="mb-3 form-input">
-              <label for="barang-tgl-masuk">Tanggal Masuk</label>
-              <input type="date" name="barang_tgl_masuk" value="<?=$data['tanggal_masuk'] ?? ''?>" class="form-control" id="barang-tgl-masuk" <?=$disabled?>>
+              <label for="barang-tgl-masuk">Tanggal Dikirim</label>
+              <input type="text" name="barang_tgl_masuk" value="<?=$data['tanggal_masuk'] ?? ''?>" class="form-control" id="barang-tgl-masuk" <?=$disabled?>>
             </div>
             <div class="mb-3 form-input">
-              <label for="barang-tgl-keluar">Tanggal Keluar</label>
-              <input type="date" name="barang_tgl_keluar" value="<?=$data['tanggal_keluar'] ?? ''?>" class="form-control" id="barang-tgl-keluar" <?=$disabled?>>
+              <label for="barang-tgl-keluar">Tanggal Tiba</label>
+              <input type="text" name="barang_tgl_keluar" value="<?=$data['tanggal_keluar'] ?? ''?>" class="form-control" id="barang-tgl-keluar" <?=$disabled?>>
             </div>
           </div>
         <?php } ?>
@@ -93,9 +99,13 @@
       </div>
     </div>
 
-    <!-- Button -->
-    <button role="button" id="form-submit" class="btn btn-primary">Simpan</button>
-    <a role="button" class="btn btn-danger" href="<?=base_url('pengiriman')?>" style="float:right;">Batal</a>
+    <?php if(in_array($action, ['do_add', 'do_update'])) { ?>
+      <!-- Button -->
+      <button role="button" id="form-submit" class="btn btn-primary">Simpan</button>
+      <a role="button" class="btn btn-danger" href="<?=base_url('pengiriman')?>" style="float:right;">Batal</a>
+    <?php } else { ?>
+      <a role="button" class="btn btn-light" href="<?=base_url('pengiriman')?>" style="float:right;">Kembali</a>
+    <?php } ?>
 
   </form>
 </div>
@@ -104,10 +114,18 @@
 <?= $this->section("post_load") ?>
 <script>
   $(document).ready(function() {
-    $('#barang-status').select2({
-      placeholder: "pilih status pengiriman",
-      allowClear: true
+    $('#status').select2({
+      placeholder: "Pilih status pengiriman",
     });
+
+    $('#barang-tgl-masuk, #barang-tgl-keluar').datepicker({
+      format:"yyyy-mm-dd",
+      todayHighlight: true,
+      changeYear: true,
+      changeMonth: true,
+      showButtonPanel: true,
+    });
+
   });
 
   // Trip input
@@ -124,7 +142,19 @@
   $('#form-submit').click((e) => {
     e.preventDefault();
     if(validateForm('form-pengiriman')) {
-      $('#form-pengiriman').submit()
+      Swal.fire({
+        icon: 'question',
+        title: 'Apakah anda yakin ingin menyimpan data ini?',
+        showClass: { popup: 'animate__animated animate__fadeInDown' },
+        hideClass: { popup: 'animate__animated animate__fadeOutUp' },
+        showConfirmButton: true,
+        showCancelButton: true,
+        reverseButtons: true,
+      }).then((isConfirm) => {
+        if(isConfirm.isConfirmed) {
+          $('#form-pengiriman').submit()
+        }
+      });
     } else {
       swalAlert('error', 'Tolong cek kembali form anda')
     }
@@ -173,6 +203,7 @@
       penerima_alamat: {required:true},
       barang_nama: {required:true},
       barang_berat: {required:true, number: true},
+      status: {required:true},
     },
     messages: {
       pengirim_nama: {required:"Nama Pengirim tidak boleh kosong"},
@@ -183,6 +214,7 @@
       penerima_alamat: {required:"Alamat Penerima tidak boleh kosong"},
       barang_nama: {required:"Nama Barang tidak boleh kosong"},
       barang_berat: {required:"Berat Barang tidak boleh kosong", number:"Harus diisi dengan angka"},
+      status: {required:"Status harus dipilih"},
     },
   });
 </script>

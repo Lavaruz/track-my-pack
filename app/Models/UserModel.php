@@ -106,7 +106,7 @@ class UserModel extends Model
         $builder = $this->db->table($this->table);
         $builder->select("$this->table.*, roles.nama_role");
         $builder->join("roles", "roles.id = $this->table.id_role", "LEFT");
-        $builder->where('id', $id);
+        $builder->where("$this->table.id", $id);
         return $builder->get()->getRow();
     }
 

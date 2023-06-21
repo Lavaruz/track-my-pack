@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\RoleModel;
 use App\Models\UserModel;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -11,6 +12,7 @@ use Psr\Log\LoggerInterface;
 class UserController extends BaseController
 {
     protected $userModel;
+    protected $roleModel;
 
     /**
      * Proses inisiasi Controller
@@ -20,6 +22,7 @@ class UserController extends BaseController
         parent::initController($request, $response, $logger);
 
         $this->userModel = new UserModel();
+        $this->roleModel = new RoleModel();
     }
 
     public function index()
@@ -76,74 +79,42 @@ class UserController extends BaseController
             if(!$detail) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('ID tidak ditemukan');
 
             $data['data'] = $detail;
+            $data['role'] = $this->roleModel->select(['id', 'nama_role'])->where("is_deleted != '1'")->findAll();
         }
 
         return view('user/form', $data);
     }
 
-    // public function do_add()
-    // {
-    //     $session = session();
-    //     $user_detail = $session->get('user_detail');
+    public function do_add()
+    {
+        $session = session();
+        $user_detail = $session->get('user_detail');
 
-    //     $result = array();
-    //     $status = 'failed';
-    //     $message = '';
-    //     $data = [];
+        $result = array();
+        $status = 'failed';
+        $message = '';
 
-    //     // Pengirim
-    //     $pengirim_data = [
-    //         'nama'      => $this->request->getVar('pengirim_nama'),
-    //         'nomor_hp'  => $this->request->getVar('pengirim_nomor_hp'),
-    //         'alamat'    => $this->request->getVar('pengirim_alamat'),
-    //         'is_deleted'=> '0',
-    //         'cusr_id'   => $user_detail['user_id'],
-    //     ];
-    //     $pengirim_id = $this->pengirimModel->insert($pengirim_data);
-
-    //     // Penerima
-    //     $penerima_data = [
-    //         'nama'      => $this->request->getVar('penerima_nama'),
-    //         'nomor_hp'  => $this->request->getVar('penerima_nomor_hp'),
-    //         'alamat'    => $this->request->getVar('penerima_alamat'),
-    //         'is_deleted'=> '0',
-    //         'cusr_id'   => $user_detail['user_id'],
-    //     ];
-    //     $penerima_id = $this->penerimaModel->insert($penerima_data);
-
-    //     // Barang
-    //     $barang_data = [
-    //         'nama'      => $this->request->getVar('barang_nama'),
-    //         'berat'     => $this->request->getVar('barang_berat'),
-    //         'is_deleted'=> '0',
-    //         'cusr_id'   => $user_detail['user_id'],
-    //     ];
-    //     $barang_id = $this->barangModel->insert($barang_data);
-
-    //     $rand = strtoupper($this->generate_uuid());
-    //     $resi = 'TMP'.date('Ym').$rand;
-
-    //     $data = [
-    //         'no_resi'           => $resi,
-    //         'id_pengirim'       => $pengirim_id,
-    //         'id_penerima'       => $penerima_id,
-    //         'id_barang'         => $barang_id,
-    //         'id_user'           => $user_detail['user_id'],
-    //         'tanggal_masuk'     => date('Y-m-d'),
-    //         'id_status'         => '1',
-    //         'cuser_id'          => $user_detail['user_id'],
-    //         'is_deleted'        => '0',
-    //     ];
+        $data = [
+            'nama'              => $this->request->getVar(''),
+            'email'             => $this->request->getVar(''),
+            'nomor_hp'          => $this->request->getVar(''),
+            'username'          => $this->request->getVar(''),
+            'password'          => $this->request->getVar(''),
+            'id_role'           => $this->request->getVar(''),
+            'id_perusahaan'     => $this->request->getVar(''),
+            'cuser_id'          => $user_detail['user_id'],
+            'is_deleted'        => '0',
+        ];
         
-    //     $res = $this->pengirimanModel->do_add($data);
-    //     if($res) {
-    //         $status = 'success';
-    //         $message = 'Data sukses tersimpan';
-    //     }
+        $res = $this->userModel->insert($data);
+        if($res) {
+            $status = 'success';
+            $message = 'Data sukses tersimpan';
+        }
 
-    //     $result = array('status' => $status, 'message' => $message);
-    //     echo json_encode($result);
-    // }
+        $result = array('status' => $status, 'message' => $message);
+        echo json_encode($result);
+    }
 
     // public function do_update($id)
     // {
@@ -211,31 +182,31 @@ class UserController extends BaseController
     //     echo json_encode($result);
     // }
 
-    // public function getDetailById($id)
-    // {
-    //     $status = 'failed';
-    //     $message = 'Gagal mendapatkan data';
-    //     $data = array();
+    public function getDetailById($id)
+    {
+        $status = 'failed';
+        $message = 'Gagal mendapatkan data';
+        $data = array();
 
-    //     if($id != '') {
-    //         $id = trim(strtolower($id));
-    //         $data = $this->userModel->getDetailById($id);
-    //         if($data) {
-    //            $status = 'success';
-    //            $message = 'OK';
-    //         } else {
-    //             $message = 'Data tidak ditemukan';
-    //         }
-    //     } else {
-    //         $message = 'ID tidak boleh kosong!';
-    //     }
+        if($id != '') {
+            $id = trim(strtolower($id));
+            $data = $this->userModel->getDetailById($id);
+            if($data) {
+               $status = 'success';
+               $message = 'OK';
+            } else {
+                $message = 'Data tidak ditemukan';
+            }
+        } else {
+            $message = 'ID tidak boleh kosong!';
+        }
 
-    //     $response = array(
-    //         'status' => $status,
-    //         'data' => $data,
-    //         'message' => $message
-    //     );
+        $response = array(
+            'status' => $status,
+            'data' => $data,
+            'message' => $message
+        );
 
-    //     return json_encode($response);
-    // }
+        return json_encode($response);
+    }
 }

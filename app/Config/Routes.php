@@ -46,17 +46,17 @@ $routes->get('/pengiriman', 'PengirimanController::index');
 $routes->get('/pengiriman/tambah', 'PengirimanController::form/add');
 $routes->get('/pengiriman/edit/(:segment)', 'PengirimanController::form/update/$1');
 $routes->get('/pengiriman/view/(:segment)', 'PengirimanController::form/view/$1');
-$routes->get('/pengiriman/hapus/(:num)', 'PengirimanController::do_delete/$1');
+$routes->post('/pengiriman/delete', 'PengirimanController::do_delete');
 $routes->post('/pengiriman/getAllDashboard', 'PengirimanController::getAllDashboard');
 $routes->post('/pengiriman/tambah', 'PengirimanController::do_add');
-$routes->post('/pengiriman/edit/(:num)', 'PengirimanController::form/do_update/$1');
+$routes->post('/pengiriman/edit/(:num)', 'PengirimanController::do_update/$1');
 
 // Perusahaan
 $routes->get('/perusahaan', 'PerusahaanController::index');
 $routes->get('/perusahaan/tambah', 'PerusahaanController::form/add');
 $routes->get('/perusahaan/edit/(:num)', 'PerusahaanController::form/update/$1');
 $routes->get('/perusahaan/view/(:num)', 'PerusahaanController::form/view/$1');
-$routes->get('/perusahaan/hapus/(:num)', 'PerusahaanController::do_delete/$1');
+$routes->post('/perusahaan/delete', 'PerusahaanController::do_delete');
 $routes->post('/perusahaan/getAllDashboard', 'PerusahaanController::getAllDashboard');
 $routes->post('/perusahaan/tambah', 'PerusahaanController::do_add');
 $routes->post('/perusahaan/edit/(:num)', 'PerusahaanController::do_update/$1');
@@ -64,9 +64,9 @@ $routes->post('/perusahaan/edit/(:num)', 'PerusahaanController::do_update/$1');
 // User
 $routes->get('/user', 'UserController::index');
 $routes->get('/user/tambah', 'UserController::form/add');
-$routes->get('/user/edit/(:num)', 'UserController::form/edit/$1');
+$routes->get('/user/edit/(:num)', 'UserController::form/update/$1');
 $routes->get('/user/view/(:num)', 'UserController::form/view/$1');
-$routes->get('/user/hapus/(:num)', 'UserController::do_delete/$1');
+$routes->post('/user/delete', 'UserController::do_delete');
 $routes->post('/user/getAllDashboard', 'UserController::getAllDashboard');
 $routes->post('/user/tambah', 'UserController::do_add');
 $routes->post('/user/edit/(:num)', 'UserController::do_update/$1');

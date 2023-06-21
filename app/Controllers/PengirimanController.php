@@ -7,6 +7,7 @@ use App\Models\BarangModel;
 use App\Models\PenerimaModel;
 use App\Models\PengirimanModel;
 use App\Models\PengirimModel;
+use App\Models\StatusModel;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -17,6 +18,7 @@ class PengirimanController extends BaseController
     protected $pengirimModel;
     protected $penerimaModel;
     protected $barangModel;
+    protected $statusModel;
 
     /**
      * Proses inisiasi Controller
@@ -29,6 +31,7 @@ class PengirimanController extends BaseController
         $this->pengirimModel = new PengirimModel();
         $this->penerimaModel = new PenerimaModel();
         $this->barangModel = new BarangModel();
+        $this->statusModel = new StatusModel();
     }
 
     public function index()
@@ -82,6 +85,7 @@ class PengirimanController extends BaseController
             if(!$detail) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No Resi tidak ditemukan');
 
             $data['data'] = $detail;
+            $data['status'] = $this->statusModel->where("is_deleted != '1'")->findAll();
         }
 
         return view('pengiriman/form', $data);
@@ -135,7 +139,7 @@ class PengirimanController extends BaseController
             'id_penerima'       => $penerima_id,
             'id_barang'         => $barang_id,
             'id_user'           => $user_detail['user_id'],
-            'tanggal_masuk'     => date('Y-m-d'),
+            'tanggal_masuk'     => date('Y-m-d H:i:s'),
             'id_status'         => '1',
             'cuser_id'          => $user_detail['user_id'],
             'is_deleted'        => '0',
@@ -161,9 +165,9 @@ class PengirimanController extends BaseController
         $message = '';
         $data = [];
 
+        $dt = $this->pengirimanModel->find($id);
+
         // Pengirim
-        $pengirim_id = $this->pengirimModel->find($id);
-        print_r($pengirim_id);die();
         $pengirim_data = [
             'nama'      => $this->request->getVar('pengirim_nama'),
             'nomor_hp'  => $this->request->getVar('pengirim_nomor_hp'),
@@ -171,7 +175,7 @@ class PengirimanController extends BaseController
             'musr_id'   => $user_detail['user_id'],
             'mtime'     => date('Y-m-d H:i:s'),
         ];
-        $pengirim_id = $this->pengirimModel->update($pengirim_data);
+        $this->pengirimModel->update($dt['id_pengirim'], $pengirim_data);
 
         // Penerima
         $penerima_data = [
@@ -181,36 +185,61 @@ class PengirimanController extends BaseController
             'musr_id'   => $user_detail['user_id'],
             'mtime'     => date('Y-m-d H:i:s'),
         ];
-        $penerima_id = $this->penerimaModel->insert($penerima_data);
+        $this->penerimaModel->update($dt['id_penerima'], $penerima_data);
 
         // Barang
         $barang_data = [
             'nama'      => $this->request->getVar('barang_nama'),
             'berat'     => $this->request->getVar('barang_berat'),
-            'is_deleted'=> '0',
-            'cusr_id'   => $user_detail['user_id'],
+            'musr_id'   => $user_detail['user_id'],
+            'mtime'     => date('Y-m-d H:i:s'),
         ];
-        $barang_id = $this->barangModel->insert($barang_data);
-
-        $rand = strtoupper($this->generate_uuid());
-        $resi = 'TMP'.date('Ym').$rand;
+        $this->barangModel->update($dt['id_barang'], $barang_data);
 
         $data = [
-            'no_resi'           => $resi,
-            'id_pengirim'       => $pengirim_id,
-            'id_penerima'       => $penerima_id,
-            'id_barang'         => $barang_id,
-            'id_user'           => $user_detail['user_id'],
-            'tanggal_masuk'     => date('Y-m-d'),
-            'id_status'         => '1',
-            'cuser_id'          => $user_detail['user_id'],
-            'is_deleted'        => '0',
+            'tanggal_masuk'     => $this->request->getVar('barang_tgl_masuk') == '' ? null : $this->request->getVar('barang_tgl_masuk'),
+            'tanggal_keluar'    => $this->request->getVar('barang_tgl_keluar') == ''? null : $this->request->getVar('barang_tgl_keluar'),
+            'id_status'         => $this->request->getVar('status'),
+            'muser_id'          => $user_detail['user_id'],
+            'mtime'             => date('Y-m-d H:i:s'),
         ];
         
-        $res = $this->pengirimanModel->do_add($data);
+        $res = $this->pengirimanModel->update($id, $data);
         if($res) {
             $status = 'success';
             $message = 'Data sukses tersimpan';
+        }
+
+        $result = array('status' => $status, 'message' => $message);
+        echo json_encode($result);
+    }
+
+    public function do_delete()
+    {
+        $session = session();
+        $user_detail = $session->get('user_detail');
+
+        $result = array();
+        $status = 'failed';
+        $message = 'Data tidak ditemukan';
+        $data = [];
+
+        $resi   = $this->request->getVar('id');
+
+        if(isset($resi) && $resi != '') {
+            $dt = $this->pengirimanModel->where('no_resi', $resi)->first();
+    
+            $data = [
+                'duser_id'          => $user_detail['user_id'],
+                'dtime'             => date('Y-m-d H:i:s'),
+                'is_deleted'        => '1',
+            ];
+            
+            $res = $this->pengirimanModel->update($dt['id'], $data);
+            if($res) {
+                $status = 'success';
+                $message = 'Data sukses terhapus';
+            }
         }
 
         $result = array('status' => $status, 'message' => $message);

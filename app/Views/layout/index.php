@@ -26,7 +26,11 @@ $user_detail = $session->get('user_detail') ?? null;
   <script src="<?= base_url('/assets/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
 
   <!-- jQuery -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
   <script src="<?= base_url('/assets/plugins/jquery/jquery-3.6.4.min.js') ?>"></script>
+  <script src="<?= base_url('/assets/plugins/jquery-ui-1.13.2/jquery-ui.min.js') ?>"></script>
+  <!-- <script src="//code.jquery.com/jquery-1.12.4.js"></script> -->
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="<?= base_url('/assets/plugins/jquery-datatable/js/jquery.datatables.js') ?>"></script>
   <script src="<?= base_url('/assets/js/jquery-validate.js') ?>"></script>
 
@@ -152,9 +156,8 @@ $user_detail = $session->get('user_detail') ?? null;
             icon: 'success',
             title: 'Login sukses',
             showConfirmButton: true,
-          }).then((isConfirm) => {
-            location.reload()
           });
+          location.reload()
         } else {
           var msg = 'Login gagal: ' + res.message
           swalAlert('error', msg);

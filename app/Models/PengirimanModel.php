@@ -59,6 +59,7 @@ class PengirimanModel extends Model
             penerima.nama AS penerima,
             penerima.alamat AS destinasi,
             status.nama AS status,
+            $this->table.id_status,
             $this->table.id
         ";
 
@@ -111,14 +112,15 @@ class PengirimanModel extends Model
         $builder = $this->db->table($this->table);
         $builder->select(
             "$this->table.id AS pengiriman_id,
-            $this->table.no_resi AS pengiriman_resi, 
+            $this->table.no_resi AS pengiriman_resi,
+            $this->table.id_status,
             (CASE WHEN $this->table.tanggal_masuk != '' 
                 THEN DATE_FORMAT($this->table.tanggal_masuk,'%Y-%m-%d')
-                ELSE '-' END
+                ELSE '' END
             ) AS tanggal_masuk,
             (CASE WHEN $this->table.tanggal_keluar != ''
                 THEN DATE_FORMAT($this->table.tanggal_keluar,'%Y-%m-%d')
-                ELSE '-' END
+                ELSE '' END
             ) AS tanggal_keluar,
             pengirim.nama AS nama_pengirim,
             pengirim.nomor_hp AS nomor_pengirim,

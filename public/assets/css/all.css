@@ -1297,16 +1297,21 @@ html {
   margin: 2rem 5rem;
   border-radius: 10px;
 }
+
 .container-profile form button {
-  /* border: none; */
-  /* background-color: #2adba7; */
   float: right;
-  /* border-radius: 5px; */
-  margin: 1rem 10px;
-  /* padding: 0.5rem 1.5rem; */
+  margin: 0rem 10px;
   transition: 0.3s;
   color: white;
 }
+
+.container-profile form a[role='button'] {
+  float: right;
+  margin: 0rem 10px;
+  transition: 0.3s;
+  color: white;
+}
+
 .profile-info {
   background-color: #f6f6f6;
   display: flex;
@@ -1317,10 +1322,19 @@ html {
   padding: 4rem;
 }
 .profile-data {
-  padding: 4rem;
+  /* padding: 4rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1rem; */
+  background-color: #ffffff;
+  padding: 1rem;
+  border: 0.2px solid lightgray;
+  min-width: 55vw;
+  margin: 1.5rem 0;
+  border-radius: 10px;
+  display: grid;
+  gap: 0.7rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 .profile-data label input {
   width: 100%;
