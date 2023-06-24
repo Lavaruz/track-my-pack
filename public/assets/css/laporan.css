@@ -1,0 +1,38 @@
+header {
+  text-align: center;
+  margin-top: 3rem;
+}
+header h2 {
+  margin: 0.2rem 0;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+}
+main {
+  margin: 3rem;
+}
+table.customTable {
+  width: 100%;
+  background-color: #ffffff;
+  border-collapse: collapse;
+  border-width: 2px;
+  border-color: #020300;
+  border-style: solid;
+  color: #000000;
+}
+
+table.customTable td,
+table.customTable th {
+  border-width: 2px;
+  border-color: #020300;
+  border-style: solid;
+  padding: 5px;
+}
+
+table.customTable thead {
+  background-color: #48e1f8;
+}
+footer {
+  margin: 0 5rem;
+  display: flex;
+  justify-content: flex-end;
+}
