@@ -9,6 +9,7 @@ if($user_detail['id_role'] == '1') {
     <a href='".base_url('/pengiriman')."' role='button' id='pengiriman-button' class='dropdown-item'>Pengiriman</a>
     <a href='".base_url('/perusahaan')."' role='button' id='perusahaan-button' class='dropdown-item'>Perusahaan</a>
     <a href='".base_url('/user')."' role='button' id='user-button' class='dropdown-item'>Pengguna</a>
+    <a href='".base_url('/laporan')."' role='button' id='laporan-button' class='dropdown-item'>Laporan</a>
     ";
 }
 // Logistik

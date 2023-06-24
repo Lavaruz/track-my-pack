@@ -1310,7 +1310,7 @@ html {
   color: white;
 }
 
-.container-profile form a[role='button'] {
+.container-profile form a[role="button"] {
   float: right;
   margin: 0rem 10px;
   transition: 0.3s;
@@ -1415,4 +1415,23 @@ th {
   border: 1px solid #dddddd Im !important;
   text-align: left;
   padding: 8px;
+}
+
+.laporan-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border: 0.2px solid lightgray;
+  min-width: 55vw;
+  margin: 1.5rem 0;
+  border-radius: 10px;
+  display: grid;
+  gap: 0.7rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.laporan-container form button,
+.laporan-container form a {
+  float: right;
+  margin: 2rem 10px 0 10px;
+  transition: 0.3s;
+  color: white;
 }

@@ -71,6 +71,9 @@ $routes->post('/user/getAllDashboard', 'UserController::getAllDashboard');
 $routes->post('/user/tambah', 'UserController::do_add');
 $routes->post('/user/edit/(:num)', 'UserController::do_update/$1');
 
+// Laporan
+$routes->get('/laporan', 'ReportController::index');
+
 
 // Language API
 $routes->get('/setLanguage/(:segment)', 'ApiController::setLanguage/$1');
