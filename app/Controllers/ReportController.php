@@ -66,9 +66,11 @@ class ReportController extends BaseController
 
             $filename = "TMP_Report_" . date('Ymd');
             
-            $d = array('data' => $data, 'filename' => $filename, 'config' => $config, 'user_detail' => $user_detail);
+            $logo = file_get_contents('assets/img/logo.png');
+            
+            $d = array('data' => $data, 'filename' => $filename, 'config' => $config, 'user_detail' => $user_detail, 'logo' => 'data:image/png;base64, '.base64_encode($logo));
     
-            $dompdf = new Dompdf();
+            $dompdf = new Dompdf(array('enable_remote' => true, 'enable_html5_parser' => true));
             $dompdf->loadHtml(view('laporan/report', $d)); 
             $dompdf->setPaper('A4', 'landscape');         
             $dompdf->render(); 

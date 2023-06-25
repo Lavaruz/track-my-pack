@@ -47,9 +47,8 @@
 
   footer {
     margin: 0 5rem;
-    display: flex;
-    justify-content: flex-end;
-    text-align: end;
+    float:right;
+    text-align: right;
   }
 
   table.customTable tr,
@@ -59,6 +58,7 @@
 </style>
 
 <body>
+  <img src="<?= $logo ?>" alt="" width="300" />
   <header>
     <h2>Track My Pack</h2>
     <h2>Laporan Pengiriman</h2>
@@ -108,7 +108,7 @@
   <footer>
     <div class="footer-ttd">
       <?php setlocale(LC_TIME, 'IND')?>
-      <p>Jakarta, <?=strftime('%A %d %B %Y')?></p>
+      <p>Jakarta, <?=strftime('%d %B %Y')?></p>
       <br />
       <p><?= $user_detail['nama'] ?></p>
     </div>
