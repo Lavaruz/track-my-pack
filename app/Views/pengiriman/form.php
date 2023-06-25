@@ -21,7 +21,7 @@
             <div class="mb-3 form-input">
               <label for="status" class="form-label">Status <span class="form-required">*</span></label>
               <select name="status" id="status" class="form-control" <?=$disabled?>>
-                <option value=""></option>
+                <option value="">Pilih status pengiriman</option>
                 <?php foreach($status as $sv) {
                   $selected = ($data['id_status'] == $sv['id']) ? 'selected' : '';
                   echo "<option value='$sv[id]' $selected>$sv[nama]</option>";
@@ -115,7 +115,7 @@
 <script>
   $(document).ready(function() {
     $('#status').select2({
-      placeholder: "Pilih status pengiriman",
+      allowClear: true,
     });
 
     $('#barang-tgl-masuk, #barang-tgl-keluar').datepicker({

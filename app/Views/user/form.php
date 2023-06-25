@@ -93,14 +93,14 @@
 <script>
   $(document).ready(function() {
     $('#id_perusahaan').select2({
-      placeholder: "Pilih Perusahaan",
+      allowClear: true,
     });
     $('#id_perusahaan').on('select2:select', (e) => {
       $('#id_perusahaan').valid();
     })
 
     $('#id_role').select2({
-      placeholder: "Pilih Role",
+      allowClear: true,
     });
     $('#id_role').on('select2:select', (e) => {
       $('#id_role').valid();

@@ -16,6 +16,7 @@ if($user_detail['id_role'] == '1') {
 else if($user_detail['id_role'] == '2') {
     $links = "
     <a href='".base_url('/pengiriman')."' role='button' id='pengiriman-button' class='dropdown-item'>Pengiriman</a>
+    <a href='".base_url('/laporan')."' role='button' id='laporan-button' class='dropdown-item'>Laporan</a>
     ";
 }
 ?>

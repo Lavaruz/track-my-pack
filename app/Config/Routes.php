@@ -73,6 +73,8 @@ $routes->post('/user/edit/(:num)', 'UserController::do_update/$1');
 
 // Laporan
 $routes->get('/laporan', 'ReportController::index');
+$routes->post('/laporan', 'ReportController::generateReport');
+$routes->post('/laporan/deleteTmpFile', 'ReportController::deleteTmpFile');
 
 
 // Language API

@@ -68,12 +68,18 @@ class PengirimanModel extends Model
         $builder->join('pengirim', 'pengirim.id=id_pengirim', 'LEFT');
         $builder->join('penerima', 'penerima.id=id_penerima', 'LEFT');
         $builder->join('status', 'status.id=id_status', 'LEFT');
+        $builder->join('users', "$this->table.id_user=users.id", 'LEFT');
 
         $builder->where("COALESCE($this->table.is_deleted, '0') != '1'");
         
         // Based on User role
         if($data['role'] == '2') {
-            $builder->where("id_user", $data['user_id']);
+            $perusahaan = $this->db->table('users')->select("id_perusahaan")->where("id", "$data[user_id]")->get()->getRow();
+            if(isset($perusahaan->id_perusahaan) && $perusahaan->id_perusahaan != '') {
+                $builder->where("users.id_perusahaan", "$perusahaan->id_perusahaan");
+            } else {
+                $builder->where("$this->table.id_user", "$data[user_id]");
+            }
         }
 
         // Get Total
@@ -185,6 +191,50 @@ class PengirimanModel extends Model
         $result = $builder->update($data);
 
         return $result;
+    }
+
+    public function generate_report($data) {
+        $builder = $this->db->table($this->table);
+        $builder->select(
+            "$this->table.no_resi, 
+            status.nama AS status,
+            pengirim.nama AS nama_pengirim,
+            pengirim.alamat AS alamat_pengirim,
+            penerima.nama AS nama_penerima,
+            penerima.nomor_hp AS nomor_penerima,
+            penerima.alamat AS alamat_penerima,
+            barang.nama AS nama_barang, 
+            barang.berat AS berat_barang,
+            (CASE WHEN $this->table.tanggal_masuk != '' 
+                THEN DATE_FORMAT($this->table.tanggal_masuk,'%d-%m-%Y')
+                ELSE '-' END
+            ) AS tanggal_dikirim,
+            (CASE WHEN $this->table.tanggal_keluar != ''
+                THEN DATE_FORMAT($this->table.tanggal_keluar,'%d-%m-%Y')
+                ELSE '-' END
+            ) AS tanggal_diterima"
+        );
+        $builder->join('pengirim', 'pengirim.id=id_pengirim', 'LEFT');
+        $builder->join('penerima', 'penerima.id=id_penerima', 'LEFT');
+        $builder->join('status', 'status.id=id_status', 'LEFT');
+        $builder->join('barang', 'barang.id=id_barang', 'LEFT');
+        $builder->join('users', "$this->table.id_user=users.id", 'LEFT');
+
+        if($data['status'] != '') $builder->where('status.id', $data['status']);
+        if($data['tanggal_masuk'] != '') $builder->where("COALESCE($this->table.tanggal_masuk, CURDATE()) >= '$data[tanggal_masuk]'");
+        if($data['tanggal_keluar'] != '') $builder->where("COALESCE($this->table.tanggal_keluar, CURDATE()) <= '$data[tanggal_keluar]'");
+
+        // Based on User role
+        if($data['role'] == '2') {
+            $perusahaan = $this->db->table('users')->select("id_perusahaan")->where("id", "$data[user_id]")->get()->getRow();
+            if(isset($perusahaan->id_perusahaan) && $perusahaan->id_perusahaan != '') {
+                $builder->where("users.id_perusahaan", "$perusahaan->id_perusahaan");
+            } else {
+                $builder->where("$this->table.id_user", "$data[user_id]");
+            }
+        }
+        
+        return $builder->get()->getResult();
     }
     
 }
