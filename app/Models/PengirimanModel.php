@@ -220,6 +220,8 @@ class PengirimanModel extends Model
         $builder->join('barang', 'barang.id=id_barang', 'LEFT');
         $builder->join('users', "$this->table.id_user=users.id", 'LEFT');
 
+        $builder->where("COALESCE($this->table.is_deleted, '0') != '1'");
+
         if($data['status'] != '') $builder->where('status.id', $data['status']);
         if($data['tanggal_masuk'] != '') $builder->where("COALESCE($this->table.tanggal_masuk, CURDATE()) >= '$data[tanggal_masuk]'");
         if($data['tanggal_keluar'] != '') $builder->where("COALESCE($this->table.tanggal_keluar, CURDATE()) <= '$data[tanggal_keluar]'");
