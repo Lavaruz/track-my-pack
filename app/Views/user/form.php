@@ -55,7 +55,7 @@
           <option value="">Pilih Perusahaan</option>
           <?php foreach($perusahaan as $rv) {
             $selected = '';
-            if($rv['id'] == $data->id_perusahaan ?? '') {
+            if(isset($data->id_perusahaan) && $rv['id'] == $data->id_perusahaan) {
               $selected = 'selected';
             }
             echo "<option value='$rv[id]' $selected>$rv[nama]</option>";
@@ -68,7 +68,7 @@
           <option value="">Pilih Role</option>
           <?php foreach($role as $rv) {
             $selected = '';
-            if($rv['id'] == $data->id_role ?? '') {
+            if(isset($data->id_role) && $rv['id'] == $data->id_role) {
               $selected = 'selected';
             }
             echo "<option value='$rv[id]' $selected>$rv[nama_role]</option>";
