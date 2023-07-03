@@ -108,7 +108,7 @@
   <footer>
     <div class="footer-ttd">
       <?php setlocale(LC_TIME, 'IND')?>
-      <p>Jakarta, <?=strftime('%d %B %Y')?></p>
+      <p>Jakarta, <?=strftime('%A %d %B %Y')?></p>
       <br />
       <p><?= $user_detail['nama'] ?></p>
     </div>
