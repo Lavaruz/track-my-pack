@@ -107,8 +107,24 @@
   </main>
   <footer>
     <div class="footer-ttd">
-      <?php setlocale(LC_TIME, 'IND')?>
-      <p>Jakarta, <?=strftime('%A %d %B %Y')?></p>
+      <?php
+      $weekdays = array(
+        'Minggu', 'Senin', 'Selasa', 'Rabu',
+        'Kamis', 'Jumat', 'Sabtu'
+       );
+       $months = array(null,
+        'Januari', 'Februaru', 'Maret', 'April',
+        'Mei', 'Juni', 'Juli', 'Agustus',
+        'September', 'Oktober', 'November',
+        'Desember'
+       );
+       $weekday = $weekdays[ date('w') ];
+       $month   = $months[ date('n') ];
+       $day     = date('d');
+       $year    = date('Y');
+       
+       echo "<p>Jakarta, $weekday, $day $month $year</p>";
+      ?>
       <br />
       <p><?= $user_detail['nama'] ?></p>
     </div>
