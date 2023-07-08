@@ -123,7 +123,7 @@
        $day     = date('d');
        $year    = date('Y');
        
-       echo "<p>Jakarta, $weekday, $day $month $year</p>";
+       echo "<p>Jakarta, $weekday $day $month $year</p>";
       ?>
       <br />
       <p><?= $user_detail['nama'] ?></p>
